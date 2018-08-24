@@ -9,19 +9,5 @@
        <version>2.0</version>
     </parent>
    
-   <dependencies>
-   		<dependency>
-   			<groupId>orh.hamcrest</groupId>
-   			<atrifactId>hamcrest-all</artifactId>
-   			<version>1.3</version>
-   			<scope>test</scope>
-   		</dependency>
-   		<dependency>
-   			<groupId>junit</groupId>
-   			<atrifactId>junit</artifactId>
-   			<version>4.12</version>
-   			<scope>test</scope>
-   		</dependency>
-   </dependencies>
     
 </project>
