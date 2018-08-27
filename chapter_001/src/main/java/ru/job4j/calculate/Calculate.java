@@ -13,7 +13,7 @@ public class Calculate {
 	* @param value – string for string concatenation.
 	* @return - result of string concatenation.  
 	*/
-	public String echo(String value){
+	public String echo(String value) {
 		return String.format("%s %s %s", value, value, value);
 	}
 	
