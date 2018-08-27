@@ -6,6 +6,10 @@ import static org.junit.Assert.*;
 
 public class CalculateTest {
 
+	/**
+	* Test echo
+	*/
+	 
 	@Test
 	public void whenSetStopInEchoThenReturnThreeStops() {
 		//assign
@@ -23,5 +27,17 @@ public class CalculateTest {
 		String result = calc.echo(null);
 		assertThat(result, is("null null null")); 
 	}
-
+	
+	/**
+	* Test echolot
+	*/
+	@Test
+	public void whenTakeNameThenTreeEchoPlusName() {
+   		String input = "XXX";
+    	String expect = "Echo, echo, echo : XXX"; 
+    	Calculate calc = new Calculate();
+    	String result = calc.echolot(input);
+    	assertThat(result, is(expect));
+	}
+	
 }
