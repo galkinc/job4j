@@ -1,5 +1,5 @@
 /**
-* Package for Ideal weight tests.
+* Package for Ideal weight.
 *
 * @author Kirill Galkin (mailto:galkinc@gmail.com)
 * @version $Id$
