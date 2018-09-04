@@ -65,7 +65,7 @@ public class CalculatorTest {
     public void whenSetNineInResultThenReturnNineInResult() {
         Calculator calc = new Calculator();
         double expected = 9D;
-        calc.result = expected;
+        calc.setResult(expected);
         double result = calc.getResult();
         assertThat(result, is(expected));
     }

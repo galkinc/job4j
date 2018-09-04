@@ -6,7 +6,7 @@ package ru.job4j.calculate;
  */
 public class Calculator {
     // double result - value for calculation result saving
-    double result;
+    private double result;
 
     /**
      * Method add - summarising and saving the result into this.result.
@@ -55,6 +55,14 @@ public class Calculator {
      */
     public double getResult() {
         return this.result;
+    }
+
+    /**
+     * Method setResult - using for autotest
+     * @param result
+     */
+    public void setResult(double result) {
+        this.result = result;
     }
 
 }
