@@ -1,5 +1,5 @@
 /**
-* Package for currency converter task.
+* Package for Package for currency converter task.
 *
 * @author Kirill Galkin (mailto:galkinc@gmail.com)
 * @version $Id$
