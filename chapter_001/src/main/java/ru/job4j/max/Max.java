@@ -44,4 +44,17 @@ public class Max {
     public int max() {
         return this.a > this.b ? this.a : this.b;
     }
+
+    /**
+     * Method maxFromThree: Maximum of three numbers
+     * Task #190
+     *
+     * @param c
+     * @return Maximum value
+     */
+    public int maxFromThree(int c) {
+        int maximum = new Max(new Max(this.a, this.b).max(), c).max();
+        return maximum;
+    }
+
 }
