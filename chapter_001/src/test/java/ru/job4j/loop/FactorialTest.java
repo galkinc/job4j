@@ -11,15 +11,20 @@ import static org.junit.Assert.assertThat;
  */
 public class FactorialTest {
 
+    /**
+     * Test for factorial calculation.
+     * The factorial for 5 is 120 (1 * 2 * 3 * 4 * 5).
+     */
     @Test
-    // The factorial for 5 is 120 (1 * 2 * 3 * 4 * 5).
     public void setFiveThen120() {
         Factorial factorial = new Factorial();
         assertThat(factorial.factorialCalc(5), is(120));
     }
 
+    /**
+     * Test for calculation of factorial for 0 (is 1).
+     */
     @Test
-    // The factorial for 0 is 1
     public void setNullThenOne() {
         Factorial factorial = new Factorial();
         assertThat(factorial.factorialCalc(0), is(1));
