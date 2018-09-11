@@ -46,7 +46,7 @@ public class Paint {
 
     /**
      * Drawing a Right Triangle.
-     * The right triangle can have one 90° angle on the left side, or one 90° angle on the right side
+     * The right triangle can have one 90° bottom angle on the left side, or one 90° bottom angle on the right side
      *
      * @param h - height of the triangle
      * @param rightSide - 0 is left side triangle; 1 is right side triangle;
