@@ -1,5 +1,7 @@
 package ru.job4j.loop;
 
+import java.util.function.BiPredicate;
+
 public class Paint {
 
 
@@ -10,10 +12,6 @@ public class Paint {
      * If height is 2 then:
      *  ^
      * ^^^
-     *If height is 3 then:
-     *   ^
-     *  ^^^
-     * ^^^^^
      * If height is 4 then:
      *    ^
      *   ^^^
@@ -21,28 +19,17 @@ public class Paint {
      * ^^^^^^^
      *
      * @param h
-     * @return
+     * @return Pyramid drawing
      */
-    public String pyramid(int h) {
-
-        StringBuilder screen = new StringBuilder();
-        String ln = System.lineSeparator();
-
-        int w = 2 * h - 1;
-
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                if (i >= (h - j - 1) && j <= (i + h - 1)) {
-                    screen.append("ˆ");
-                } else {
-                    screen.append(" ");
-                }
-            }
-            screen.append(ln);
-        }
-
-        return screen.toString();
+    public String pyramid(int height) {
+        return this.loopBy(
+                height,
+                2 * height - 1,
+                (row, column) -> row >= height - column - 1 && row + height - 1 >= column
+        );
     }
+
+
 
     /**
      * Drawing a Right Triangle.
@@ -54,12 +41,29 @@ public class Paint {
      */
     public String rightTriangle(int h, boolean rightSide) {
 
-        StringBuilder screen = new StringBuilder();
-        String ln = System.lineSeparator();
+        return this.loopBy(
+                h,
+                h,
+                rightSide ? (row, column) -> row >= h - column - 1 : (row, column) -> row >= column
+        );
 
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j != h; j++) {
-                if ((i >= j) && !rightSide || (i >= (h - j - 1) && rightSide)) {
+    }
+
+    /**
+     * Private method for drawing a right triangle.
+     *
+     * @param height
+     * @param weight
+     * @param predict
+     * @return right triangle drawing
+     */
+    private String loopBy(int height, int weight, BiPredicate<Integer, Integer> predict) {
+
+        StringBuilder screen = new StringBuilder();
+
+        for (int row = 0; row != height; row++) {
+            for (int column = 0; column != weight; column++) {
+                if (predict.test(row, column)) {
                     screen.append("ˆ");
                 } else {
                     screen.append(" ");
