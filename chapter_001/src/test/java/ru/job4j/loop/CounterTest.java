@@ -9,20 +9,20 @@ import static org.junit.Assert.assertThat;
  */
 public class CounterTest {
 
-    @Test
     /**
      * Test for Add method
      */
+    @Test
     public void whenOneToTenThenSumThirty() {
         Counter counter = new Counter();
         int result = counter.add(1, 10);
         assertThat(result, is(30));
     }
 
-    @Test
     /**
      * Add method should work too if first value is bigger than second.
      */
+    @Test
     public void whenTenToOneThenSumThirty() {
         Counter counter = new Counter();
         int result = counter.add(10, 1);
