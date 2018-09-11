@@ -22,27 +22,14 @@ package ru.job4j.max;
  */
 public class Max {
 
-    //variables for comparison
-    private int a;
-    private int b;
-
-    /**
-     * Class constructor
-     *
-     * @param a - first value
-     * @param b - second value
-     */
-    public Max(int a, int b) {
-        this.a = a;
-        this.b = b;
-    }
-
     /**
      * Identifying a maximum value
+     * @param a - first value
+     * @param b - second value
      * @return Maximum value
      */
-    public int max() {
-        return this.a > this.b ? this.a : this.b;
+    public int max(int a, int b) {
+        return a > b ? a : b;
     }
 
     /**
@@ -52,8 +39,8 @@ public class Max {
      * @param c
      * @return Maximum value
      */
-    public int maxFromThree(int c) {
-        int maximum = new Max(new Max(this.a, this.b).max(), c).max();
+    public int maxFromThree(int a, int b, int c) {
+        int maximum = new Max().max(new Max().max(a, b), c);
         return maximum;
     }
 

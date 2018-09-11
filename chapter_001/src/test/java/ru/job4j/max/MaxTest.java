@@ -11,19 +11,11 @@ public class MaxTest {
 
     @Test
     /**
-     * Constructor testing.
-     */
-    public void whenInitiateConstructorThenNothing() {
-        Max maximum = new Max(1, 2);
-    }
-
-    @Test
-    /**
      * Test for max-defining function
      */
     public void whenALessBThenB() {
-        Max maxim = new Max(1, 2);
-        int result = maxim.max();
+        Max maxim = new Max();
+        int result = maxim.max(1, 2);
         assertThat(result, is(2));
     }
 
@@ -32,7 +24,7 @@ public class MaxTest {
      * Test for the method maxFromThree: Maximum of three numbers
      */
     public void whenALesBAndBMoreCThenB() {
-        int maximum = new Max(1, 5).maxFromThree(3);
+        int maximum = new Max().maxFromThree(1, 5, 3);
         assertThat(maximum, is(5));
     }
 }
