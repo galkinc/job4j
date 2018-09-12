@@ -36,12 +36,13 @@ public class Max {
      * Method maxFromThree: Maximum of three numbers
      * Task #190
      *
-     * @param c
+     *  @param a - first value
+     *  @param b - second value
+     *  @param c
      * @return Maximum value
      */
     public int maxFromThree(int a, int b, int c) {
-        int maximum = new Max().max(new Max().max(a, b), c);
-        return maximum;
+        return this.max(this.max(a, b), c);
     }
 
 }
