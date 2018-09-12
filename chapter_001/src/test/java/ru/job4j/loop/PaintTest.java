@@ -52,7 +52,7 @@ public class PaintTest {
     }
 
     /**
-     * Test for drawing a right triangles. The right triangle has one 90° angle (left side)
+     * Test for drawing a right triangles. The right triangle has one 90° angle (right side of the pyramid)
      *
      * Example of drawing:
      * ˆ
@@ -62,7 +62,7 @@ public class PaintTest {
     @Test
     public void whenSetLeftRightTriangleThenRightStructure() {
         Paint paint = new Paint();
-        String result = paint.rightTriangle(3, false);
+        String result = paint.halfPyramid(3, false);
         assertThat(result,
                 is(
                         new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
@@ -75,7 +75,7 @@ public class PaintTest {
     }
 
     /**
-     * Test for drawing a right triangles ( side). The right triangle has one 90° angle (right side)
+     * Test for drawing a right triangles. The right triangle has one 90° angle (left side of the pyramid)
      *
      * Example of drawing:
      *   ˆ
@@ -85,7 +85,7 @@ public class PaintTest {
     @Test
     public void whenSetLeftLeftTriangleThenRightStructure() {
         Paint paint = new Paint();
-        String result = paint.rightTriangle(3, true);
+        String result = paint.halfPyramid(3, true);
         assertThat(result,
                 is(
                         new StringJoiner(System.lineSeparator(), "", System.lineSeparator())

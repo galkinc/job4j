@@ -18,7 +18,7 @@ public class Paint {
      *  ^^^^^
      * ^^^^^^^
      *
-     * @param h
+     * @param height
      * @return Pyramid drawing
      */
     public String pyramid(int height) {
@@ -32,25 +32,25 @@ public class Paint {
 
 
     /**
-     * Drawing a Right Triangle.
+     * Drawing a Right or Left side of the pyramid.
      * The right triangle can have one 90° bottom angle on the left side, or one 90° bottom angle on the right side
      *
-     * @param h - height of the triangle
-     * @param rightSide - 0 is left side triangle; 1 is right side triangle;
-     * @return Drawing of a right side triangle
+     * @param height - height of the triangle
+     * @param leftside - 0 is left half of the pytamid; 1 is right side;
+     * @return Drawing of a half of the pyramid
      */
-    public String rightTriangle(int h, boolean rightSide) {
+    public String halfPyramid(int height, boolean leftside) {
 
         return this.loopBy(
-                h,
-                h,
-                rightSide ? (row, column) -> row >= h - column - 1 : (row, column) -> row >= column
+                height,
+                height,
+                leftside ? (row, column) -> row >= height - column - 1 : (row, column) -> row >= column
         );
 
     }
 
     /**
-     * Private method for drawing a right triangle.
+     * Private method for drawing a leftside or right side of the pyramid (right triangle).
      *
      * @param height
      * @param weight
