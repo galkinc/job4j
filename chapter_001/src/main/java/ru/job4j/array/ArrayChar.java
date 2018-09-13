@@ -20,9 +20,10 @@ public class ArrayChar {
     public boolean startWith(String word) {
         boolean result = true;
         char[] value = word.toCharArray();
-        for (int i = 0; i < value.length && result; i++) {
+        for (int i = 0; i < value.length; i++) {
             if (this.data[i] != value[i]) {
                 result = false;
+                break;
             }
         }
         return result;
