@@ -45,7 +45,7 @@ public class BubbleSort {
         //optimization for a long ordered tail
         int lastSwap = array.length - 1;
 
-        for (int i = 0; isSorted && i < array.length - 1; i++) {
+        for (int i = 0; i < array.length - 1 && !isSorted; i++) {
             isSorted = true;
             int currentSwap = -1;
 
@@ -55,7 +55,7 @@ public class BubbleSort {
                     array[j + 1] = array[j];
                     array[j] = tmp;
                     isSorted = false;
-                    currentSwap = i;
+                    currentSwap = j;
                 }
             }
             lastSwap = currentSwap;
