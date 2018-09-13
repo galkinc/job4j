@@ -2,9 +2,9 @@ package ru.job4j.array;
 
 /**
  * Class
- * {true, true, true} - вернет true;
- * {true, false, true} - вернет false;
- * {false, false, false} - вернет true;
+ * {true, true, true} - return true;
+ * {true, false, true} - return false;
+ * {false, false, false} - return true;
  */
 public class Check {
     /**
@@ -18,8 +18,8 @@ public class Check {
      */
     public boolean mono(boolean[] array) {
         boolean result = true;
-        for (int i = 0; i < array.length && result; i++) {
-            if (!array[i]) {
+        for (int i = 0; i < array.length - 1  && result; i++) {
+            if (array[i] != array[i + 1]) {
                 result = false;
             }
         }
