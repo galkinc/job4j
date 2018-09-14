@@ -14,18 +14,16 @@ public class MatrixCheck {
         boolean condition = true;
         int size = data.length - 1;
 
-        for (int i = 0; condition && i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                //Does the point be in the FIRST main diagonal? && Comparing with the next element in the diagonal
-                if (i == j && data[i][j] != data[i + 1][j + 1]) {
-                    condition = false;
-                    break;
-                }
-                //Does the point be in the SECOND main diagonal? && Comparing with the next element in the diagonal
-                if (i + j == size && data[size - i][j] != data[size - i][j + i]) {
-                    condition = false;
-                    break;
-                }
+        for (int i = 0; i < size; i++) {
+            //Does the point be in the FIRST main diagonal? && Comparing with the next element in the diagonal
+            if (data[i][i] != data[i + 1][i + 1]) {
+                condition = false;
+                break;
+            }
+            //Does the point be in the SECOND main diagonal? && Comparing with the next element in the diagonal
+            if (data[size - i][i] != data[size - i - 1][i + 1]) {
+                condition = false;
+                break;
             }
         }
         return condition;
