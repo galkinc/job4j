@@ -12,54 +12,30 @@ import static org.junit.Assert.assertThat;
 public class Logic3TTest {
 
     // ---------------------------------------------------
-    // * Vertical line tests *
+    // * Test for X winning (isWinnerX()) *
     // ---------------------------------------------------
 
-    /*
+    // --- Vertical line for X ---
+
+    /**
+     * Vertical line, 3x3 matrix: X winning true test
+     */
     @Test
-    public void whenHasXWinner() {
+    public void set3x3MatrixIsWinnerXWhenVerticalXThenTrue() {
         Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(), new Figure3T()},
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
                 {new Figure3T(), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(true)}
         };
         Logic3T login = new Logic3T(table);
         assertThat(login.isWinnerX(), is(true));
     }
 
-    @Test
-    public void whenHasOWinner() {
-        Figure3T[][] table = {
-                {new Figure3T(false), new Figure3T(), new Figure3T()},
-                {new Figure3T(false), new Figure3T(true), new Figure3T()},
-                {new Figure3T(false), new Figure3T(), new Figure3T(true)},
-        };
-        Logic3T login = new Logic3T(table);
-        assertThat(login.isWinnerO(), is(true));
-    }
-
-    @Test
-    public void whenHasGas() {
-        Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(), new Figure3T()},
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(), new Figure3T(), new Figure3T(true)},
-        };
-        Logic3T login = new Logic3T(table);
-        assertThat(login.hasGap(), is(true));
-    }
-    */
-
-
-    // ---------------------------------------------------
-    // * Vertical line tests *
-    // ---------------------------------------------------
-
     /**
-     * Vertical line X winning test
+     * Vertical line. 4x4 matrix: X winning true test
      */
     @Test
-    public void whenAllVerticalElementsHaveXAndCheckXThenTrue() {
+    public void set4x4MatrixIsWinnerXWhenVerticalXThenTrue() {
         Figure3T[][] table = {
                 {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
                 {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
@@ -67,123 +43,76 @@ public class Logic3TTest {
                 {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()}
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXVerticalWinner(true), is(true));
+        assertThat(login.isWinnerX(), is(true));
     }
 
     /**
-     * Vertical line: check winning parameter, if it'X but we expect O return false
+     * Vertical line, 3x3 matrix: X winning false test
      */
     @Test
-    public void whenAllVerticalElementsHaveXAndCheck0ThenFalse() {
-        Figure3T[][] table = {
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
-        };
-        Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXVerticalWinner(false), is(false));
-    }
-
-    /**
-     * Vertical line O winning test
-     */
-    @Test
-    public void whenAllVerticalElementsHave0AndCheck0ThenTrue() {
+    public void set3x3MatrixIsWinnerXWhenVerticalOThenFalse() {
         Figure3T[][] table = {
                 {new Figure3T(), new Figure3T(false), new Figure3T()},
                 {new Figure3T(), new Figure3T(false), new Figure3T()},
-                {new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T()}
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXVerticalWinner(false), is(true));
+        assertThat(login.isWinnerX(), is(false));
     }
 
-    /**
-     * Vertical line doesn't include a same value (nobody win)
-     */
-    @Test
-    public void whenVerticalElementsHaveNotSameValueXThenFalse() {
-        Figure3T[][] table = {
-                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(), new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(true), new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(true), new Figure3T(), new Figure3T(true), new Figure3T()},
-        };
-        Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXVerticalWinner(true), is(false));
-    }
-
-    // ---------------------------------------------------
-    // * Horizontal line tests *
-    // ---------------------------------------------------
+    // --- Horizontal line for X ----
 
     /**
-     * Horizontal line: X winning test
+     * Horizontal line, 3x3 matrix: X winning true test
      */
     @Test
-    public void whenAllHorizontalElementsHaveXAndCheckXThenTrue() {
+    public void set3x3MatrixIsWinnerXWhenHorizontalXThenTrue() {
         Figure3T[][] table = {
                 {new Figure3T(true), new Figure3T(true), new Figure3T(true)},
                 {new Figure3T(), new Figure3T(), new Figure3T()},
                 {new Figure3T(), new Figure3T(), new Figure3T()},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXHorizontalWinner(true), is(true));
+        assertThat(login.isWinnerX(), is(true));
     }
 
     /**
-     * Horizontal line: check winning parameter, if it'X but we expect O return false
+     * Horizontal line, 5x5 matrix: X winning true test
      */
     @Test
-    public void whenAllHorizontalElementsHaveXAndCheck0ThenFalse() {
+    public void set5x5MatrixIsWinnerXWhenHorizontalXThenTrue() {
         Figure3T[][] table = {
-                {new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(true), new Figure3T(true), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(true), new Figure3T(true), new Figure3T(true), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXHorizontalWinner(false), is(false));
+        assertThat(login.isWinnerX(), is(true));
     }
 
     /**
-     * Horizontal line: O winning test
+     * Horizontal line, 3x3 matrix: X winning false test
      */
     @Test
-    public void whenAllHorizontalElementsHave0AndCheck0ThenTrue() {
+    public void set3x3MatrixIsWinnerXWhenHorizontalOThenFalse() {
         Figure3T[][] table = {
-                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(false), new Figure3T(false), new Figure3T(false), new Figure3T(false)},
+                {new Figure3T(false), new Figure3T(false), new Figure3T(false)},
                 {new Figure3T(), new Figure3T(), new Figure3T()},
                 {new Figure3T(), new Figure3T(), new Figure3T()},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXHorizontalWinner(false), is(true));
+        assertThat(login.isWinnerX(), is(false));
     }
 
-    /**
-     * Horizontal line doesn't include a same value (nobody win)
-     */
-    @Test
-    public void whenHorizontalElementsHaveNotSameValueXThenFalse() {
-        Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
-                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
-        };
-        Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXHorizontalWinner(true), is(false));
-    }
-
-    // ---------------------------------------------------
-    // * Diagonal lines tests *
-    // ---------------------------------------------------
+    // --- Diagonal line for X ----
 
     /**
-     * Diagonal lines: X winning test
+     * Diagonal line (up do down), 5x5 Matrix: X winning true test
      */
     @Test
-    public void whenAllDiagonalElementsHaveXAndCheckXThenTrue() {
+    public void set5x5MatrixIsWinnerXWhenUpToDawnDiagonalXThenTrue() {
         Figure3T[][] table = {
                 {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
                 {new Figure3T(), new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
@@ -192,49 +121,245 @@ public class Logic3TTest {
                 {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(true)},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXDiagonalWinner(true), is(true));
+        assertThat(login.isWinnerX(), is(true));
     }
 
     /**
-     * Diagonal lines: check winning parameter, if it'X but we expect O return false
+     * Diagonal line (down do up), 4x4 Matrix: X winning true test
      */
     @Test
-    public void whenAllDiagonalElementsHaveXAndCheck0ThenFalse() {
+    public void set4x4MatrixIsWinnerXWhenDownToUpDiagonalXThenTrue() {
         Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(), new Figure3T()},
-                {new Figure3T(), new Figure3T(true), new Figure3T()},
-                {new Figure3T(), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(), new Figure3T(), new Figure3T(true), new Figure3T()},
+                {new Figure3T(), new Figure3T(true), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()}
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXDiagonalWinner(false), is(false));
+        assertThat(login.isWinnerX(), is(true));
     }
 
     /**
-     * Diagonal lines: O winning test
+     * Diagonal line (up do down), 3x3 Matrix: X winning false test
      */
     @Test
-    public void whenAllDiagonalElementsHave0AndCheck0ThenTrue() {
+    public void set3x3MatrixIsWinnerXWhenUpToDawnDiagonalOThenFalse() {
         Figure3T[][] table = {
                 {new Figure3T(false), new Figure3T(), new Figure3T()},
                 {new Figure3T(), new Figure3T(false), new Figure3T()},
                 {new Figure3T(), new Figure3T(), new Figure3T(false)},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXDiagonalWinner(false), is(true));
+        assertThat(login.isWinnerX(), is(false));
+    }
+
+    // ---------------------------------------------------
+    // * Test for O winning (isWinnerO()) *
+    // ---------------------------------------------------
+
+    // --- Vertical line for O ---
+
+    /**
+     * Vertical line, 3x3 matrix: O winning test
+     */
+    @Test
+    public void set4x4MatrixWhenVerticalOThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(), new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(false), new Figure3T()}
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(true));
     }
 
     /**
-     * Diagonal lines doesn't include a same value (nobody win)
+     * Vertical line. 5x5 matrix: O winning test
      */
     @Test
-    public void whenDiagonalElementsHaveNotSameXValueThenFalse() {
+    public void set5x5MatrixWhenVerticalOThenTrue() {
         Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()}
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(true));
+    }
+
+    /**
+     * Vertical line, 3x3 matrix: O winning false test
+     */
+    @Test
+    public void set3x3MatrixIsWinnerOWhenVerticalXThenFalse() {
+        Figure3T[][] table = {
                 {new Figure3T(), new Figure3T(true), new Figure3T()},
+                {new Figure3T(), new Figure3T(true), new Figure3T()},
+                {new Figure3T(), new Figure3T(true), new Figure3T()}
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(false));
+    }
+
+    // --- Horizontal line for O ----
+
+    /**
+     * Horizontal line, 3x3 matrix: O winning test
+     */
+    @Test
+    public void set3x3MatrixWhenHorizontalOThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(false), new Figure3T(false)},
                 {new Figure3T(), new Figure3T(), new Figure3T()},
         };
         Logic3T login = new Logic3T(table);
-        assertThat(login.whenHasXDiagonalWinner(true), is(false));
+        assertThat(login.isWinnerO(), is(true));
     }
+
+    /**
+     * Horizontal line, 5x5 matrix: O winning test
+     */
+    @Test
+    public void set5x5MatrixwhenHorizontalOThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(false), new Figure3T(false), new Figure3T(false), new Figure3T(false), new Figure3T(false)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(true));
+    }
+
+    /**
+     * Horizontal line, 3x3 matrix: O winning false test
+     */
+    @Test
+    public void set3x3MatrixIsWinnerOWhenHorizontalXThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(true), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(false));
+    }
+
+    // --- Diagonal line for O ----
+
+    /**
+     * Diagonal line (up do down), 4x4 Matrix: O winning test
+     */
+    @Test
+    public void set5x5MatrixWhenUpToDawnDiagonalHaveOThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(false), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(), new Figure3T(false)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(true));
+    }
+
+    /**
+     * Diagonal line (down do up), 3x3 Matrix: O winning test
+     */
+    @Test
+    public void set4x4MatrixWhenDownToUpDiagonalHaveOThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(), new Figure3T(), new Figure3T(false)},
+                {new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(false), new Figure3T(), new Figure3T()}
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(true));
+    }
+
+    /**
+     * Diagonal line (up do down), 3x3 Matrix: O winning false test
+     */
+    @Test
+    public void set3x3MatrixIsWinnerOWhenUpToDawnDiagonalXThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(true), new Figure3T()},
+                {new Figure3T(), new Figure3T(), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(false));
+    }
+
+    // ---------------------------------------------------
+    // * Game is continuing but nobody win *
+    // ---------------------------------------------------
+
+    /**
+     * 3x3 Matrix, isWinnerX()
+     */
+    @Test
+    public void set3x3MatrixIsWinnerXWhenNoWinnerThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T()},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerX(), is(false));
+    }
+
+    /**
+     * 4x4 Matrix, isWinnerX()
+     */
+    @Test
+    public void set4x4MatrixIsWinnerXWhenNoWinnerThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerX(), is(false));
+    }
+
+    /**
+     * 3x3 Matrix, isWinnerO()
+     */
+    @Test
+    public void set3x3MatrixIsWinnerOWhenNoWinnerThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(false), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T()},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(false));
+    }
+
+    /**
+     * 4x4 Matrix, isWinnerO()
+     */
+    @Test
+    public void set4x4MatrixIsWinnerOWhenNoWinnerThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(), new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(true), new Figure3T(), new Figure3T(), new Figure3T()},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.isWinnerO(), is(false));
+    }
+
+    // ---------------------------------------------------
+    // * Test if there isn't a place for X or O *
+    // ---------------------------------------------------
+
 
 }

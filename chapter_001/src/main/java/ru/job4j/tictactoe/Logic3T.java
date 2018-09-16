@@ -20,13 +20,13 @@ public class Logic3T {
      * @param hasMarkX If True - checking for X; If False - checking for O
      * @return True/False - Is hasMarkX winner?
      */
-    public boolean whenHasXVerticalWinner(boolean hasMarkX) {
+    private boolean checkVerticalWinner(boolean hasMarkX) {
         boolean result = false;
         int size = this.table.length;
         int counter = 0;
 
         for (int j = 0; j < size; j++) {
-            if (counter < size - 1) {
+            //if (counter < size - 1) {
                 //every new line should set counter to zero
                 counter = 0;
                 //column - should be equal о < size
@@ -43,9 +43,10 @@ public class Logic3T {
                         }
                     }
                 }
-            } else {
-                result = true;
-            }
+            //} else {
+            //    result = true;
+            //}
+            if (counter == size - 1) { result = true; }
         }
         return result;
     }
@@ -56,7 +57,7 @@ public class Logic3T {
      * @param hasMarkX If True - checking for X; If False - checking for O
      * @return True/False - Is hasMarkX winner?
      */
-    public boolean whenHasXHorizontalWinner(boolean hasMarkX) {
+    private boolean checkHorizontalWinner(boolean hasMarkX) {
         boolean result = false;
         int size = this.table.length;
         int counter = 0;
@@ -64,7 +65,7 @@ public class Logic3T {
         //rows - should be equal i < size - 1, because we don't want to go out of the array
         for (int i = 0; i < size; i++) {
             //if counter should be less of size - 1, or it means wining
-            if (counter < size - 1) {
+            //if (counter < size - 1) {
                 counter = 0;
                 for (int j = 0; j < size - 1; j++) {
                     boolean markX = this.table[i][j].hasMarkX();
@@ -76,9 +77,10 @@ public class Logic3T {
                         }
                     }
                 }
-            } else {
-                result = true;
-            }
+            //} else {
+            //    result = true;
+            //}
+            if (counter == size - 1) { result = true; }
         }
         return result;
     }
@@ -89,21 +91,23 @@ public class Logic3T {
      * @param hasMarkX If True - checking for X; If False - checking for O
      * @return True/False - Is hasMarkX winner?
      */
-    public boolean whenHasXDiagonalWinner(boolean hasMarkX) {
+    private boolean checkDiagonalWinner(boolean hasMarkX) {
         boolean result = false;
         int size = this.table.length - 1;
         int firstDiagonal = 0;
         int secondDiagonal = 0;
 
         for (int i = 0; i < size; i++) {
-            boolean markX = this.table[i][i].hasMarkX();
-            boolean markO = this.table[i][i].hasMarkO();
+            //boolean markX = this.table[i][i].hasMarkX();
+            //boolean markO = this.table[i][i].hasMarkO();
 
-            if (markX != markO && markX == hasMarkX) {
-                if (markX == this.table[i + 1][i + 1].hasMarkX()) {
+            if (this.table[i][i].hasMarkX() != this.table[i][i].hasMarkO() && this.table[i][i].hasMarkX() == hasMarkX) {
+                if (this.table[i][i].hasMarkX() == this.table[i + 1][i + 1].hasMarkX()) {
                     firstDiagonal++;
                 }
-                if (this.table[size - i][i].hasMarkX() != this.table[size - i - 1][i + 1].hasMarkX()) {
+            }
+            if (this.table[size - i][i].hasMarkX() != this.table[size - i][i].hasMarkO() && this.table[size - i][i].hasMarkX() == hasMarkX) {
+                if (this.table[size - i][i].hasMarkX() == this.table[size - i - 1][i + 1].hasMarkX()) {
                     secondDiagonal++;
                 }
             }
@@ -127,6 +131,12 @@ public class Logic3T {
     public boolean isWinnerX() {
         boolean result = false;
 
+        if (this.checkDiagonalWinner(true)
+                || this.checkHorizontalWinner(true)
+                || this.checkVerticalWinner(true)) {
+           result = true;
+        }
+
         return result;
     }
 
@@ -135,7 +145,15 @@ public class Logic3T {
      * @return
      */
     public boolean isWinnerO() {
-        return false;
+        boolean result = false;
+
+        if (this.checkDiagonalWinner(false)
+                //|| this.checkVerticalWinner(false)
+                || this.checkHorizontalWinner(false)) {
+            result = true;
+        }
+
+        return result;
     }
 
     /**
