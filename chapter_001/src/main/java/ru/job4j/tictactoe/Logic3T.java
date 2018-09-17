@@ -1,10 +1,12 @@
 package ru.job4j.tictactoe;
 
+import com.sun.org.apache.xpath.internal.functions.FuncFalse;
+
 /**
  * Game logic class
  *
  * @author galkinc
- * @version 0.0.1
+ * @version 1.0.0
  *
  */
 public class Logic3T {
@@ -17,36 +19,36 @@ public class Logic3T {
     /**
      * Checking who is winner by all possible vertical lines
      * also checking the size of the sequence
-     * @param hasMarkX If True - checking for X; If False - checking for O
-     * @return True/False - Is hasMarkX winner?
+     * @param checkX If it's True - checking for X; If it's False - checking for O
+     * @return True/False - Is X or O the winner?
      */
-    private boolean checkVerticalWinner(boolean hasMarkX) {
+    private boolean checkVerticalWinner(boolean checkX) {
         boolean result = false;
         int size = this.table.length;
         int counter = 0;
 
         for (int j = 0; j < size; j++) {
-            //if (counter < size - 1) {
-                //every new line should set counter to zero
-                counter = 0;
-                //column - should be equal о < size
-                for (int i = 0; i < size -  1; i++) {
-                    boolean markX = this.table[i][j].hasMarkX();
-                    boolean markO = this.table[i][j].hasMarkO();
-
-                    //We should check hasMarkX and the presence of the value (X or O) in the point
-                    if (markX != markO && markX == hasMarkX) {
-                        //Comparing current point and next one by vertical line
-                        if (markX == this.table[i + 1][j].hasMarkX()) {
-                            //increase counter of the sequence
+            //every new line should set counter to zero
+            counter = 0;
+            for (int i = 0; i < size -  1; i++) {
+                if (checkX) {  //If checkX == true, then X
+                    if (this.table[i][j].hasMarkX()) {
+                        if (this.table[i][j].hasMarkX() == this.table[i + 1][j].hasMarkX()) {
+                            counter++;
+                        }
+                    }
+                } else { //if checkX == false, then O
+                    if (this.table[i][j].hasMarkO()) {
+                        if (this.table[i][j].hasMarkO() == this.table[i + 1][j].hasMarkO()) {
                             counter++;
                         }
                     }
                 }
-            //} else {
-            //    result = true;
-            //}
-            if (counter == size - 1) { result = true; }
+            }
+            if (counter == size - 1) {
+                result = true;
+                break;
+            }
         }
         return result;
     }
@@ -54,61 +56,75 @@ public class Logic3T {
     /**
      * Checking who is winner by all possible horizontal lines
      * also checking the size of the sequence
-     * @param hasMarkX If True - checking for X; If False - checking for O
-     * @return True/False - Is hasMarkX winner?
+     * @param checkX If it's True - checking for X; If it's False - checking for O
+     * @return True/False - Is X or O the winner?
      */
-    private boolean checkHorizontalWinner(boolean hasMarkX) {
+    private boolean checkHorizontalWinner(boolean checkX) {
         boolean result = false;
         int size = this.table.length;
         int counter = 0;
 
-        //rows - should be equal i < size - 1, because we don't want to go out of the array
         for (int i = 0; i < size; i++) {
-            //if counter should be less of size - 1, or it means wining
-            //if (counter < size - 1) {
-                counter = 0;
-                for (int j = 0; j < size - 1; j++) {
-                    boolean markX = this.table[i][j].hasMarkX();
-                    boolean markO = this.table[i][j].hasMarkO();
-
-                    if (markX != markO && markX == hasMarkX) {
-                        if (markX == this.table[i][j + 1].hasMarkX()) {
+            //every new line should set counter to zero
+            counter = 0;
+            for (int j = 0; j < size -  1; j++) {
+                //If checkX == true, then X; if checkX == false, then O
+                if (checkX) {
+                    if (this.table[i][j].hasMarkX()) {
+                        if (this.table[i][j].hasMarkX() == this.table[i][j + 1].hasMarkX()) {
+                            counter++;
+                        }
+                    }
+                } else {
+                    if (this.table[i][j].hasMarkO()) {
+                        if (this.table[i][j].hasMarkO() == this.table[i][j + 1].hasMarkO()) {
                             counter++;
                         }
                     }
                 }
-            //} else {
-            //    result = true;
-            //}
-            if (counter == size - 1) { result = true; }
+            }
+            if (counter == size - 1) {
+                result = true;
+                break;
+            }
         }
         return result;
     }
 
     /**
-     * Checking who is winner by all possible vertical lines
+     * Checking who is winner in two main diagonal lines
      * also checking the size of the sequence
-     * @param hasMarkX If True - checking for X; If False - checking for O
-     * @return True/False - Is hasMarkX winner?
+     * @param checkX If it's True - checking for X; If it's False - checking for O
+     * @return True/False - Is X or O the winner?
      */
-    private boolean checkDiagonalWinner(boolean hasMarkX) {
+    private boolean checkDiagonalWinner(boolean checkX) {
         boolean result = false;
         int size = this.table.length - 1;
         int firstDiagonal = 0;
         int secondDiagonal = 0;
 
         for (int i = 0; i < size; i++) {
-            //boolean markX = this.table[i][i].hasMarkX();
-            //boolean markO = this.table[i][i].hasMarkO();
-
-            if (this.table[i][i].hasMarkX() != this.table[i][i].hasMarkO() && this.table[i][i].hasMarkX() == hasMarkX) {
-                if (this.table[i][i].hasMarkX() == this.table[i + 1][i + 1].hasMarkX()) {
-                    firstDiagonal++;
+            if (checkX) { //If checkX == true, then X
+                if (this.table[i][i].hasMarkX()) {
+                    if (this.table[i][i].hasMarkX() == this.table[i + 1][i + 1].hasMarkX()) {
+                        firstDiagonal++;
+                    }
                 }
-            }
-            if (this.table[size - i][i].hasMarkX() != this.table[size - i][i].hasMarkO() && this.table[size - i][i].hasMarkX() == hasMarkX) {
-                if (this.table[size - i][i].hasMarkX() == this.table[size - i - 1][i + 1].hasMarkX()) {
-                    secondDiagonal++;
+                if (this.table[size - i][i].hasMarkX()) {
+                    if (this.table[size - i][i].hasMarkX() == this.table[size - i - 1][i + 1].hasMarkX()) {
+                        secondDiagonal++;
+                    }
+                }
+            } else { //if checkX == false, then O
+                if (this.table[i][i].hasMarkO()) {
+                    if (this.table[i][i].hasMarkO() == this.table[i + 1][i + 1].hasMarkO()) {
+                        firstDiagonal++;
+                    }
+                }
+                if (this.table[size - i][i].hasMarkO()) {
+                    if (this.table[size - i][i].hasMarkO() == this.table[size - i - 1][i + 1].hasMarkO()) {
+                        secondDiagonal++;
+                    }
                 }
             }
         }
@@ -121,19 +137,16 @@ public class Logic3T {
         return result;
     }
 
-
-
-
     /**
-     * X - True
-     * @return
+     * Checking winner: X (flag "true" in the matrix)
+     * @return True - X is the winner; False - X isn't the winner
      */
     public boolean isWinnerX() {
         boolean result = false;
 
         if (this.checkDiagonalWinner(true)
-                || this.checkHorizontalWinner(true)
-                || this.checkVerticalWinner(true)) {
+                || this.checkVerticalWinner(true)
+                || this.checkHorizontalWinner(true)) {
            result = true;
         }
 
@@ -141,14 +154,14 @@ public class Logic3T {
     }
 
     /**
-     * 0 - False
-     * @return
+     * Checking winner: O (flag "false" in the matrix)
+     * @return True - O is the winner; False - O isn't the winner
      */
     public boolean isWinnerO() {
         boolean result = false;
 
         if (this.checkDiagonalWinner(false)
-                //|| this.checkVerticalWinner(false)
+                || this.checkVerticalWinner(false)
                 || this.checkHorizontalWinner(false)) {
             result = true;
         }
@@ -157,10 +170,23 @@ public class Logic3T {
     }
 
     /**
-     * Think about it tomorrow
-     * @return
+     * Check availability of free places.
+     * If there are not places for X or O, then method returns false.
+     * @return True - there is minimum one free place, False - there are not free places.
      */
     public boolean hasGap() {
-        return true;
+        boolean result = false;
+        int size = this.table.length;
+
+        for (int i = 0; !result && i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (this.table[i][j].hasMarkX() == this.table[i][j].hasMarkO()) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
     }
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Test for logic of Tic tac toe
  * @author galkinc
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class Logic3TTest {
 
@@ -334,8 +334,8 @@ public class Logic3TTest {
     @Test
     public void set3x3MatrixIsWinnerOWhenNoWinnerThenFalse() {
         Figure3T[][] table = {
-                {new Figure3T(true), new Figure3T(false), new Figure3T()},
-                {new Figure3T(), new Figure3T(false), new Figure3T()},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+                {new Figure3T(false), new Figure3T(false), new Figure3T()},
                 {new Figure3T(true), new Figure3T(), new Figure3T()},
         };
         Logic3T login = new Logic3T(table);
@@ -361,5 +361,60 @@ public class Logic3TTest {
     // * Test if there isn't a place for X or O *
     // ---------------------------------------------------
 
+    /**
+     * 3x3 Matrix, there isn't a free place, expect hasGap() == true
+     */
+    @Test
+    public void set3x3MatrixHasGapWhenNoFreePlaceThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(true), new Figure3T(false)},
+                {new Figure3T(false), new Figure3T(false), new Figure3T(true)},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.hasGap(), is(false));
+    }
 
+    /**
+     * 4x4 Matrix, there isn't a free place, expect hasGap() == true
+     */
+    @Test
+    public void set4x4MatrixHasGapWhenNoFreePlaceThenTrue() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(false), new Figure3T(false)},
+                {new Figure3T(false), new Figure3T(false), new Figure3T(true), new Figure3T(true)},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.hasGap(), is(false));
+    }
+
+    /**
+     * 3x3 Matrix, there are free places, expect hasGap() == false
+     */
+    @Test
+    public void set3x3MatrixHasGapWhenFreePlacesThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(), new Figure3T(true)},
+                {new Figure3T(false), new Figure3T(), new Figure3T()},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.hasGap(), is(true));
+    }
+
+    /**
+     * 3x3 Matrix, there is one free place, expect hasGap() == false
+     */
+    @Test
+    public void set3x3MatrixHasGapWhenAFreePlaceThenFalse() {
+        Figure3T[][] table = {
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+                {new Figure3T(false), new Figure3T(), new Figure3T(false)},
+                {new Figure3T(true), new Figure3T(false), new Figure3T(true)},
+        };
+        Logic3T login = new Logic3T(table);
+        assertThat(login.hasGap(), is(true));
+    }
 }

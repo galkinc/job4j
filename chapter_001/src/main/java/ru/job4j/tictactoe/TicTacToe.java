@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * Class for visualisation components
  */
 public class TicTacToe extends Application {
-    private static final String JOB4J = "TicTactoe";
+    private static final String JOB4J = "tic-tac-toe";
     private final int size = 3;
     private final Figure3T[][] cells = new Figure3T[size][size];
     private final Logic3T logic = new Logic3T(cells);
@@ -57,16 +57,16 @@ public class TicTacToe extends Application {
     private boolean checkState() {
         boolean gap = this.logic.hasGap();
         if (!gap) {
-            this.showAlert("Все поля запонены! Начните новую Игру!");
+            this.showAlert("There are no free fields on the game board!" + System.lineSeparator() + "Please start a new game.");
         }
         return gap;
     }
 
     private void checkWinner() {
         if (this.logic.isWinnerX()) {
-            this.showAlert("Победили Крестики! Начните новую Игру!");
+            this.showAlert("X is the winner!" + System.lineSeparator() + "Please start a new game.");
         } else if (this.logic.isWinnerO()) {
-            this.showAlert("Победили Нолики! Начните новую Игру!");
+            this.showAlert("O is the winner!" + System.lineSeparator() + "Please start a new game");
         }
     }
 
@@ -127,7 +127,7 @@ public class TicTacToe extends Application {
         control.setPrefHeight(40);
         control.setSpacing(10.0);
         control.setAlignment(Pos.BASELINE_CENTER);
-        Button start = new Button("Начать");
+        Button start = new Button("New Game");
         start.setOnMouseClicked(
                 event -> border.setCenter(this.buildGrid())
         );
