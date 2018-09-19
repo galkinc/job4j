@@ -6,7 +6,7 @@ import com.sun.org.apache.xpath.internal.functions.FuncFalse;
  * Game logic class
  *
  * @author galkinc
- * @version 1.0.0
+ * @version 1.0.1
  *
  */
 public class Logic3T {
@@ -31,13 +31,13 @@ public class Logic3T {
             //every new line should set counter to zero
             counter = 0;
             for (int i = 0; i < size -  1; i++) {
-                if (checkX) {  //If checkX == true, then X
+                if (checkX) {
                     if (this.table[i][j].hasMarkX()) {
                         if (this.table[i][j].hasMarkX() == this.table[i + 1][j].hasMarkX()) {
                             counter++;
                         }
                     }
-                } else { //if checkX == false, then O
+                } else {
                     if (this.table[i][j].hasMarkO()) {
                         if (this.table[i][j].hasMarkO() == this.table[i + 1][j].hasMarkO()) {
                             counter++;
@@ -68,7 +68,6 @@ public class Logic3T {
             //every new line should set counter to zero
             counter = 0;
             for (int j = 0; j < size -  1; j++) {
-                //If checkX == true, then X; if checkX == false, then O
                 if (checkX) {
                     if (this.table[i][j].hasMarkX()) {
                         if (this.table[i][j].hasMarkX() == this.table[i][j + 1].hasMarkX()) {
@@ -104,7 +103,7 @@ public class Logic3T {
         int secondDiagonal = 0;
 
         for (int i = 0; i < size; i++) {
-            if (checkX) { //If checkX == true, then X
+            if (checkX) {
                 if (this.table[i][i].hasMarkX()) {
                     if (this.table[i][i].hasMarkX() == this.table[i + 1][i + 1].hasMarkX()) {
                         firstDiagonal++;
@@ -115,7 +114,7 @@ public class Logic3T {
                         secondDiagonal++;
                     }
                 }
-            } else { //if checkX == false, then O
+            } else {
                 if (this.table[i][i].hasMarkO()) {
                     if (this.table[i][i].hasMarkO() == this.table[i + 1][i + 1].hasMarkO()) {
                         firstDiagonal++;
@@ -128,7 +127,6 @@ public class Logic3T {
                 }
             }
         }
-
         //counter can't be smaller then size
         if (firstDiagonal == size || secondDiagonal == size) {
             result = true;
