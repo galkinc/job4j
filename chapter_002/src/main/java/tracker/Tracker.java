@@ -1,5 +1,7 @@
 package tracker;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Tracker {
@@ -36,19 +38,29 @@ public class Tracker {
      * @param subject New Item for replacement
      * @return True/false - status of the operation
      */
+
     public boolean replace(String id, Item subject) {
         boolean status = false;
+        String subjectId;
 
-        Item object = this.findById(id);
-        if (object != null) {
-            object.setName(subject.getName());
-            object.setDesc(subject.getDesc());
-            object.setCreated(subject.getCreated());
-            status = true;
+        for(int i = 0; i < this.position; i++) {
+            if (this.items[i] != null && this.items[i].getId().equals(id)) {
+                subjectId = subject.getId();
+                if (subjectId == null) {
+                   subjectId = this.generateId();
+                }
+                items[i].setId(subjectId);
+                items[i].setName(subject.getName());
+                items[i].setDesc(subject.getDesc());
+                items[i].setCreated(subject.getCreated());
+                status = true;
+                break;
+            }
         }
 
         return status;
     }
+
 
     /**
      * Deleting of an Item.
@@ -99,12 +111,13 @@ public class Tracker {
             }
         }
         //reduce null elements
-        Item[] result = new Item[resultIndex];
-        for(int i = 0; tmp[i] != null && i < resultIndex; i++) {
-            result[i] = tmp[i];
-        }
+        //Item[] result = new Item[resultIndex];
+        //for(int i = 0; tmp[i] != null && i < resultIndex; i++) {
+        //    result[i] = tmp[i];
+        //}
 
-        return result;
+        return Arrays.copyOf(tmp, resultIndex);
+
     }
 
     /**

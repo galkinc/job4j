@@ -46,10 +46,10 @@ public class TrackerTest{
         String newDesc = "New desc";
         Tracker tracker = new Tracker();
         Item object = tracker.add(new Item("Old name","Old desc"));
-        String id = object.getId();
         tracker.replace(object.getId(), new Item(newName,newDesc));
-        assertThat(tracker.findById(id).getName(), is(newName));
-        assertThat(tracker.findById(id).getDesc(), is(newDesc));
+        String id = object.getId();
+        assertThat(tracker.findById(object.getId()).getName(), is(newName));
+        assertThat(tracker.findById(object.getId()).getDesc(), is(newDesc));
     }
 
     @Test
