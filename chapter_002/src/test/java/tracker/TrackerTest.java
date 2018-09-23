@@ -46,10 +46,11 @@ public class TrackerTest{
         String newDesc = "New desc";
         Tracker tracker = new Tracker();
         Item object = tracker.add(new Item("Old name","Old desc"));
-        tracker.replace(object.getId(), new Item(newName,newDesc));
         String id = object.getId();
-        assertThat(tracker.findById(object.getId()).getName(), is(newName));
-        assertThat(tracker.findById(object.getId()).getDesc(), is(newDesc));
+        tracker.replace(id, new Item(newName,newDesc));
+        id = object.getId();
+        assertThat(tracker.findById(id).getName(), is(newName));
+        assertThat(tracker.findById(id).getDesc(), is(newDesc));
     }
 
     @Test
@@ -68,6 +69,38 @@ public class TrackerTest{
         Boolean status = tracker.replace(id, new Item("New name","New desc"));
         assertThat(status, is(false));
     }
+
+    // Fast replacing by Id
+    @Test
+    public void setTwoItemsWhenFastReplaceItemParamsThenGetNewItemParams() {
+        String newName = "New name";
+        String newDesc = "New desc";
+        Tracker tracker = new Tracker();
+        Item object = tracker.add(new Item("Old name","Old desc"));
+        String id = object.getId();
+        tracker.fastReplace(id, new Item(newName,newDesc));
+        id = object.getId();
+        assertThat(tracker.findById(id).getName(), is(newName));
+        assertThat(tracker.findById(id).getDesc(), is(newDesc));
+    }
+
+    @Test
+    public void whenSuccessFastReplaceItemThenGetTrue() {
+        Tracker tracker = new Tracker();
+        Item object = tracker.add(new Item("Old name","Old desc"));
+        Boolean status = tracker.fastReplace(object.getId(), new Item("New name","New desc"));
+        assertThat(status, is(true));
+    }
+
+    @Test
+    public void whenFailFastReplaceItemThenGetFalse() {
+        String id = "-1";
+        Tracker tracker = new Tracker();
+        Item object = tracker.add(new Item("Old name","Old desc"));
+        Boolean status = tracker.fastReplace(id, new Item("New name","New desc"));
+        assertThat(status, is(false));
+    }
+
 
     //deleting by Id
     @Test

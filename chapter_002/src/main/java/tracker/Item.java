@@ -28,6 +28,9 @@ public class Item {
     public void setCreated(long created) {
         this.created = created;
     }
+    public void setComments(String[] comments) {
+        this.comments = comments;
+    }
 
     //---- Getters ----
     public String getName() {
@@ -42,5 +45,7 @@ public class Item {
     public long getCreated() {
         return created;
     }
-
+    public String[] getComments() {
+        return comments;
+    }
 }

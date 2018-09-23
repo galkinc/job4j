@@ -51,4 +51,12 @@ public class ItemTest {
         item.setCreated(1234L);
         assertThat(item.getCreated(), is(1234L));
     }
+
+    @Test
+    public void whenSetCommentsThenGetTheComments() {
+        String[] comments = {"Comment 1", "Comment 1", "Comment 1", "Comment 1", "Comment 1"};
+        Item item = new Item();
+        item.setComments(comments);
+        assertThat(item.getComments(), is(comments));
+    }
 }

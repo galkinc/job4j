@@ -1,6 +1,5 @@
 package tracker;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -31,14 +30,46 @@ public class Tracker {
     }
 
     /**
-     * Track Item replacing.
+     * Track Item fast replacing.
      * Replacing the item in the this.items array by id of the element.
+     * If subject is already in Tracker and has Id, then ID will be safe, otherwise the previous ID will be saved.
+     * Method doesn't use validation (Item setters and getters)
+     * For more safety method please use replace(String id, Item subject)
      *
      * @param id Item ID for replacing
      * @param subject New Item for replacement
      * @return True/false - status of the operation
      */
+    public boolean fastReplace(String id, Item subject) {
+        boolean status = false;
+        String subjectId;
 
+        for(int i = 0; i < this.position; i++) {
+            if (this.items[i] != null && this.items[i].getId().equals(id)) {
+                subjectId = subject.getId();
+                items[i] = subject;
+                if (subjectId == null) {
+                   subjectId = id;
+                }
+                items[i].setId(subjectId);
+                status = true;
+                break;
+            }
+        }
+
+        return status;
+    }
+
+    /**
+     * Track Item replacing.
+     * Replacing the item in the this.items array by id of the element.
+     * If subject is already in Tracker and has Id, then ID will be safe, otherwise the previous ID will be saved.
+     * Method use validation which should be implemented in Item Class (Item setters and getters)
+     *
+     * @param id Item ID for replacing
+     * @param subject New Item for replacement
+     * @return True/false - status of the operation
+     */
     public boolean replace(String id, Item subject) {
         boolean status = false;
         String subjectId;
@@ -46,13 +77,14 @@ public class Tracker {
         for(int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 subjectId = subject.getId();
-                if (subjectId == null) {
-                   subjectId = this.generateId();
-                }
-                items[i].setId(subjectId);
                 items[i].setName(subject.getName());
                 items[i].setDesc(subject.getDesc());
                 items[i].setCreated(subject.getCreated());
+                items[i].setComments(subject.getComments());
+                if (subjectId == null) {
+                    subjectId = id;
+                }
+                items[i].setId(subjectId);
                 status = true;
                 break;
             }
@@ -110,11 +142,6 @@ public class Tracker {
                 tmp[resultIndex++] = this.items[i];
             }
         }
-        //reduce null elements
-        //Item[] result = new Item[resultIndex];
-        //for(int i = 0; tmp[i] != null && i < resultIndex; i++) {
-        //    result[i] = tmp[i];
-        //}
 
         return Arrays.copyOf(tmp, resultIndex);
 
