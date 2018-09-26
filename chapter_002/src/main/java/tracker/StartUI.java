@@ -14,8 +14,8 @@ public class StartUI {
     private static final String SHOW = "1";
     private static final String EDIT = "2";
     private static final String DELETE = "3";
-    private static final String FINDID = "4";
-    private static final String FINDNAME = "5";
+    private static final String FIND_ID = "4";
+    private static final String FIND_NAME = "5";
     private static final String EXIT = "6";
 
     /**
@@ -25,8 +25,6 @@ public class StartUI {
     private static final String TEXT_COLOR = "\u001B[32m";
     private static final String MENU_ACTIVE_COLOR = "\u001B[35m";
     private static final String ATTENTION_COLOR = "\u001B[31m";
-    private static final String NEW_LINE = System.lineSeparator();
-    private static final String TAB = "\t";
 
     /**
      * Variable for input.
@@ -61,12 +59,12 @@ public class StartUI {
      */
     public void init() {
         //Base text messages
-        String awaiting = "Please input"  + MENU_ACTIVE_COLOR + " a number " + ANSI_RESET + "from the menu: ";
-        String wrongInput = ATTENTION_COLOR + "Wrong input value" + ANSI_RESET;
+        String awaiting = String.format("Please input %sa number%s from the menu: ", MENU_ACTIVE_COLOR, ANSI_RESET);
+        String wrongInput = this.errorUI("Wrong input value");
 
         boolean exit = false;
         while (!exit) {
-            this.showMenu();
+            this.showMenuUI();
             String answer = this.input.ask(awaiting);
             switch (answer) {
                 case ADD:
@@ -81,10 +79,10 @@ public class StartUI {
                 case DELETE:
                     this.deleteItem();
                     break;
-                case FINDID:
+                case FIND_ID:
                     this.findById();
                     break;
-                case FINDNAME:
+                case FIND_NAME:
                     this.findByName();
                     break;
                 case EXIT:
@@ -100,31 +98,60 @@ public class StartUI {
     /**
      * Console-menu drawing.
      */
-    private void showMenu() {
+    private void showMenuUI() {
+        String menu = String.format(
+                "%n %s******  MENU  ******%s %n"
+                + "%s%s%s %sAdd a new task.%s %n"
+                + "%s%s%s %sShow all tasks.%s %n"
+                + "%s%s%s %sEdit a task.%s %n"
+                + "%s%s%s %sDelete a task.%s %n"
+                + "%s%s%s %sFind a task by Id.%s %n"
+                + "%s%s%s %sFind tasks by a name.%s %n"
+                + "%s%s%s %sProgram exit.%s %n"
+                + "%s********************%s %n",
+                TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, ADD, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, SHOW, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, EDIT, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, DELETE, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, FIND_ID, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, FIND_NAME, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                MENU_ACTIVE_COLOR, EXIT, ANSI_RESET, TEXT_COLOR, ANSI_RESET,
+                TEXT_COLOR, ANSI_RESET);
 
-        System.out.println(NEW_LINE + TEXT_COLOR + "******  MENU  ******" + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + ADD + ANSI_RESET
-                    + TEXT_COLOR + " Add a new task." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + SHOW + ANSI_RESET
-                    + TEXT_COLOR + " Show all task." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + EDIT + ANSI_RESET
-                    + TEXT_COLOR + " Edit a task." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + DELETE + ANSI_RESET
-                    + TEXT_COLOR + " Delete a task." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + FINDID + ANSI_RESET
-                    + TEXT_COLOR + " Find a task by Id." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + FINDNAME + ANSI_RESET
-                    + TEXT_COLOR + " Find a task by a name." + ANSI_RESET + NEW_LINE
-                + MENU_ACTIVE_COLOR + EXIT + ANSI_RESET
-                    + TEXT_COLOR + " Program exit." + ANSI_RESET + NEW_LINE
-                + TEXT_COLOR + "********************" + ANSI_RESET + NEW_LINE);
+        System.out.println(menu);
+    }
+
+    /**
+     * Use for drawing a row of the items list.
+     * @param id Id
+     * @param name Name
+     * @param desc Desc
+     * @return Row of the items list.
+     */
+    private String tableRowUI(String id, String name, String desc) {
+        return String.format("%sID: %s %s; \t \t %sName: %s %s; \t \t \t %sDescription: %s %s;",
+                TEXT_COLOR, ANSI_RESET, id, TEXT_COLOR, ANSI_RESET, name, TEXT_COLOR, ANSI_RESET, desc);
+    }
+
+    /**
+     * Draw a header
+     * @param name Text for header
+     * @return Header
+     */
+    private String headerUI(String name) {
+        return String.format("%n%s* %s * %s", TEXT_COLOR, name.toUpperCase(), ANSI_RESET);
+    }
+
+    private String errorUI(String message) {
+        return String.format("%n%sError: %s %s", ATTENTION_COLOR, message, ANSI_RESET);
     }
 
     /**
      * Create new item.
      */
     private void createItem() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* NEW TASK *" + ANSI_RESET);
+        System.out.println(this.headerUI("create the task"));
         String name = this.input.ask("Task name: ");
         String desc = this.input.ask("Task description: ");
         Item item = new Item(name, desc);
@@ -136,11 +163,11 @@ public class StartUI {
      * Showing all items in the tracker.
      */
     private void showItems() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* ALL ITEMS *" + ANSI_RESET);
+        System.out.println(this.headerUI("Show all tasks"));
         Item[] tasks = this.tracker.getAll();
         if (tasks.length > 0) {
             for (int i = 0; i < tasks.length; i++) {
-                System.out.println(tableRow(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
+                System.out.println(tableRowUI(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
             }
         } else {
             System.out.println("No results.");
@@ -148,33 +175,19 @@ public class StartUI {
     }
 
     /**
-     * Use for drawing a row of the items list.
-     * @param id Id
-     * @param name Name
-     * @param desc Desc
-     * @return Row of the items list.
-     */
-    private String tableRow(String id, String name, String desc) {
-        return  TEXT_COLOR + "ID: " + ANSI_RESET + id + ";" + TAB + TAB
-                + TEXT_COLOR + "Name: " + ANSI_RESET + name + ";" + TAB + TAB + TAB
-                + TEXT_COLOR + "Description: " + ANSI_RESET + desc;
-    }
-
-    /**
      * Item editing.
      */
     private void editItem() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* EDIT TASK *" + ANSI_RESET);
+        System.out.println(this.headerUI("Task editing"));
         String id = this.input.ask("Task id: ");
         String name = this.input.ask("Task new name: ");
         String desc = this.input.ask("Task new description: ");
         Item item = new Item(name, desc);
         if (this.tracker.replace(id, item)) {
-            System.out.println("Task " + TEXT_COLOR + id + ANSI_RESET + " was edited to:" + NEW_LINE
-                    + this.tableRow(id, item.getName(), item.getDesc()));
+            System.out.println("Task " + TEXT_COLOR + id + ANSI_RESET + " was edited to:");
+            System.out.println(this.tableRowUI(id, item.getName(), item.getDesc()));
         } else {
-            System.out.println(ATTENTION_COLOR + "Error: Wrong edit operation." + ANSI_RESET);
-
+            System.out.println(this.errorUI("Wrong edit operation."));
         }
     }
 
@@ -182,13 +195,12 @@ public class StartUI {
      * Item deleting.
      */
     private void deleteItem() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* DELETE TASK *" + ANSI_RESET);
+        System.out.println(this.headerUI("Task deleting"));
         String id = this.input.ask("Task id: ");
         if (this.tracker.delete(id)) {
             System.out.println("Task " + TEXT_COLOR + id + ANSI_RESET + " was deleted.");
         } else {
-            System.out.println(ATTENTION_COLOR + "Error: Wrong delete operation." + ANSI_RESET);
-
+            System.out.println(this.errorUI("Wrong delete operation."));
         }
     }
 
@@ -196,11 +208,11 @@ public class StartUI {
      * Item finding by Id.
      */
     private void findById() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* FIND TASK BY ID *" + ANSI_RESET);
+        System.out.println(this.headerUI("Find the task by ID"));
         String id = this.input.ask("Task id: ");
         Item item = this.tracker.findById(id);
         if (item != null) {
-            System.out.println(this.tableRow(item.getId(), item.getName(), item.getDesc()));
+            System.out.println(this.tableRowUI(item.getId(), item.getName(), item.getDesc()));
         } else {
             System.out.println("No results.");
 
@@ -211,12 +223,12 @@ public class StartUI {
      * Item finding by a name.
      */
     private void findByName() {
-        System.out.println(NEW_LINE + TEXT_COLOR + "* FIND TASK BY NAME *" + ANSI_RESET);
+        System.out.println(this.headerUI("Find tasks by a name"));
         String name = this.input.ask("Task name: ");
         Item[] tasks = this.tracker.findByName(name);
         if (tasks.length > 0) {
             for (int i = 0; i < tasks.length; i++) {
-                System.out.println(tableRow(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
+                System.out.println(tableRowUI(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
             }
         } else {
             System.out.println("No results.");
