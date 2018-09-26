@@ -8,7 +8,8 @@ public class Item {
     private String[] comments;
 
     //---- Constructor ----
-    public Item(){}
+    public Item() {
+    }
 
     public Item(String name, String desc) {
         this.name = name;

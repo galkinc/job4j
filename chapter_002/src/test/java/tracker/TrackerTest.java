@@ -6,7 +6,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public class TrackerTest{
+public class TrackerTest {
 
     //Adding tests
     @Test
@@ -23,11 +23,10 @@ public class TrackerTest{
         String id;
         Tracker tracker = new Tracker();
         Item item = new Item();
-        Item result = new Item();
 
         tracker.add(item);
         id = item.getId();
-        result = tracker.findById(id);
+        Item result = tracker.findById(id);
         assertThat(result, is(item));
     }
 
@@ -45,9 +44,9 @@ public class TrackerTest{
         String newName = "New name";
         String newDesc = "New desc";
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
         String id = object.getId();
-        tracker.replace(id, new Item(newName,newDesc));
+        tracker.replace(id, new Item(newName, newDesc));
         id = object.getId();
         assertThat(tracker.findById(id).getName(), is(newName));
         assertThat(tracker.findById(id).getDesc(), is(newDesc));
@@ -56,8 +55,8 @@ public class TrackerTest{
     @Test
     public void whenSuccessReplaceItemThenGetTrue() {
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
-        Boolean status = tracker.replace(object.getId(), new Item("New name","New desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
+        Boolean status = tracker.replace(object.getId(), new Item("New name", "New desc"));
         assertThat(status, is(true));
     }
 
@@ -65,8 +64,8 @@ public class TrackerTest{
     public void whenFailReplaceItemThenGetFalse() {
         String id = "-1";
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
-        Boolean status = tracker.replace(id, new Item("New name","New desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
+        Boolean status = tracker.replace(id, new Item("New name", "New desc"));
         assertThat(status, is(false));
     }
 
@@ -76,9 +75,9 @@ public class TrackerTest{
         String newName = "New name";
         String newDesc = "New desc";
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
         String id = object.getId();
-        tracker.fastReplace(id, new Item(newName,newDesc));
+        tracker.fastReplace(id, new Item(newName, newDesc));
         id = object.getId();
         assertThat(tracker.findById(id).getName(), is(newName));
         assertThat(tracker.findById(id).getDesc(), is(newDesc));
@@ -87,8 +86,8 @@ public class TrackerTest{
     @Test
     public void whenSuccessFastReplaceItemThenGetTrue() {
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
-        Boolean status = tracker.fastReplace(object.getId(), new Item("New name","New desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
+        Boolean status = tracker.fastReplace(object.getId(), new Item("New name", "New desc"));
         assertThat(status, is(true));
     }
 
@@ -96,8 +95,8 @@ public class TrackerTest{
     public void whenFailFastReplaceItemThenGetFalse() {
         String id = "-1";
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Old name","Old desc"));
-        Boolean status = tracker.fastReplace(id, new Item("New name","New desc"));
+        Item object = tracker.add(new Item("Old name", "Old desc"));
+        Boolean status = tracker.fastReplace(id, new Item("New name", "New desc"));
         assertThat(status, is(false));
     }
 
@@ -106,10 +105,10 @@ public class TrackerTest{
     @Test
     public void whenCreateItemWithNameThenDeleteItemGetNull() {
         Tracker tracker = new Tracker();
-        Item object = new Item("For deleting","");
+        Item object = new Item("For deleting", "");
         tracker.add(object);
         String existedName = "Some name";
-        Item existedItem = new Item(existedName,"");
+        Item existedItem = new Item(existedName, "");
         tracker.add(existedItem);
         String id = object.getId();
         tracker.delete(id);
@@ -120,7 +119,7 @@ public class TrackerTest{
     @Test
     public void whenDeletingItemIsSuccessThenGetTrue() {
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Name","Desc"));
+        Item object = tracker.add(new Item("Name", "Desc"));
         Boolean status = tracker.delete(object.getId());
         assertThat(status, is(true));
     }
@@ -129,7 +128,7 @@ public class TrackerTest{
     public void whenDeletingItemIsFailThenGetFalse() {
         String id = "-1";
         Tracker tracker = new Tracker();
-        Item object = tracker.add(new Item("Name","Desc"));
+        Item object = tracker.add(new Item("Name", "Desc"));
         Boolean status = tracker.delete(id);
         assertThat(status, is(false));
     }
@@ -139,7 +138,7 @@ public class TrackerTest{
     public void whenGetAllFromTrackerThenGetArrayWithAllItems() {
         Tracker tracker = new Tracker();
         Item[] items = new Item[99];
-        for (int i = 0; i < items.length; i++){
+        for (int i = 0; i < items.length; i++) {
             items[i] = tracker.add(new Item(i + " item", i + " description"));
         }
         assertThat(tracker.getAll(), is(items));
@@ -155,7 +154,7 @@ public class TrackerTest{
         tracker.add(object1);
         tracker.add(new Item("balbalba", "2"));
         tracker.add(object2);
-        tracker.add(new Item("just a name","4"));
+        tracker.add(new Item("just a name", "4"));
 
         Item[] expect = {
                 object1,

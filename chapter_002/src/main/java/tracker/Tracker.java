@@ -44,7 +44,7 @@ public class Tracker {
         boolean status = false;
         String subjectId;
 
-        for(int i = 0; i < this.position; i++) {
+        for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 items[i] = subject;
                 items[i].setId(id);
@@ -68,7 +68,7 @@ public class Tracker {
         boolean status = false;
         String subjectId;
 
-        for(int i = 0; i < this.position; i++) {
+        for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 items[i].setName(subject.getName());
                 items[i].setDesc(subject.getDesc());
@@ -93,9 +93,10 @@ public class Tracker {
     public boolean delete(String id) {
         boolean status = false;
 
-        for(int i = 0; this.items[i] != null && i < this.position; i++) {
+        for (int i = 0; this.items[i] != null && i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
                 System.arraycopy(this.items, i + 1, this.items, i, this.position - 1);
+                this.position--;
                 status = true;
                 break;
             }
@@ -105,12 +106,12 @@ public class Tracker {
 
     /**
      * Return array which include all Items
-     * @return
+     * @return array which include all Items
      */
     public Item[] getAll() {
         //reduce null elements
         Item[] result = new Item[this.position];
-        for(int i = 0; this.items[i] != null && i < position; i++) {
+        for (int i = 0; this.items[i] != null && i < position; i++) {
             result[i] = this.items[i];
         }
         return result;
@@ -127,7 +128,7 @@ public class Tracker {
         Item[] tmp = new Item[this.items.length];
         int resultIndex = 0;
 
-        for(int i = 0; this.items[i] != null && i < this.position; i++) {
+        for (int i = 0; this.items[i] != null && i < this.position; i++) {
             if (this.items[i].getName().equals(key)) {
                 tmp[resultIndex++] = this.items[i];
             }
@@ -146,7 +147,7 @@ public class Tracker {
         Item result = null;
 
         //for (Item item : this.items) - can cause NullPointerException
-        for(int i = 0; i < this.position; i++) {
+        for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 result = items[i];
                 break;
