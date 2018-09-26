@@ -1,7 +1,5 @@
 package ru.job4j.tictactoe;
 
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
-
 /**
  * Game logic class
  *
