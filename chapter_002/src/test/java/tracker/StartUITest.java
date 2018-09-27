@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 public class StartUITest {
 
     /**
-     * UI input testing: New Item. (0)
+     * UI input testing: Create a new Item. (0)
      */
     @Test
     public void setUIWhenUserAddItemWithNameAndDescThenTrackerHasNewItemWithSameNameAndSameDesc() {
@@ -34,7 +34,7 @@ public class StartUITest {
     }
 
     /**
-     * UI input testing: Editing item. (2)
+     * UI input testing: Edit item. (2)
      */
     @Test
     public void setUIWhenUserUpdateItemsNameAndDescThenTrackerHasUpdatedItemsNameAndDesc() {
@@ -47,7 +47,7 @@ public class StartUITest {
     }
 
     /**
-     * UI input testing: Editing item. (3)
+     * UI input testing: Delete item. (3)
      */
     @Test
     public void setUIWhenUserDeleteItemThenTrackerHasNotItem() {
