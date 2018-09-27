@@ -1,5 +1,7 @@
 package pseudo;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -7,20 +9,37 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class PaintTest {
+    // get the link to the standard System.out
+    private PrintStream stdout = System.out;
+    // Create a buffer for System out
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+    /**
+     * Change standard System.out into the buffer
+     * Executing before method
+     */
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+
+    /**
+     * Return back standard System.out
+     * Executing after method
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
+
+    /**
+     * Square drawing test
+     */
     @Test
     public void whenDrawSquare() {
-        // get the link to the standard System.out
-        PrintStream stdout = System.out;
-        // Create a buffer for System out
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        // change standard System.out into the buffer
-        System.setOut(new PrintStream(out));
-        // execute drawing
         new Paint().draw(new Square());
-        // result checking
         assertThat(
-            new String(out.toByteArray()),
+            out.toString(),
             is(
                 new StringBuilder()
                     .append("+++++++")
@@ -31,23 +50,16 @@ public class PaintTest {
                     .toString()
             )
         );
-        // return back standard System.out
-        System.setOut(stdout);
     }
 
+    /**
+     * Triangle drawing test
+     */
     @Test
     public void whenDrawTriangle() {
-        // get the link to the standard System.out
-        PrintStream stdout = System.out;
-        // Create a buffer for System out
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        // change standard System.out into the buffer
-        System.setOut(new PrintStream(out));
-        // execute drawing
         new Paint().draw(new Triangle());
-        // result checking
         assertThat(
-            new String(out.toByteArray()),
+            out.toString(),
             is(
                 new StringBuilder()
                     .append("   +   ")
@@ -58,8 +70,6 @@ public class PaintTest {
                     .toString()
             )
         );
-        // return back standard System.out
-        System.setOut(stdout);
     }
 
 }
