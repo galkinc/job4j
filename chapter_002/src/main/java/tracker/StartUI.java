@@ -143,6 +143,11 @@ public class StartUI {
         return String.format("%n%s* %s * %s", TEXT_COLOR, name.toUpperCase(), ANSI_RESET);
     }
 
+    /**
+     * Error message drawing
+     * @param message
+     * @return Error message
+     */
     private String errorUI(String message) {
         return String.format("%n%sError: %s %s", ATTENTION_COLOR, message, ANSI_RESET);
     }
