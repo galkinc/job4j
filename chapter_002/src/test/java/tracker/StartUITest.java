@@ -9,10 +9,9 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 /**
- * Test Menu and User's UI
+ * Tests for Menu and UI
  *
  * Possible variations of input
  * 0. Add new Item
@@ -21,6 +20,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
  * 3. Delete item
  * 4. Find item by Id
  * 5. Find items by name
+ * 6. Program exit
  *
  */
 public class StartUITest {
@@ -33,40 +33,8 @@ public class StartUITest {
     //Description for the default object
     private static final String ITEM_DESC = "test desc";
 
-    /**
-     * Change standard System.out into the buffer
-     * Executing before method
-     */
-    @Before
-    public void loadOutput() {
-        System.setOut(new PrintStream(this.out));
-    }
+    // *** Variables for the graphic menu. ***
 
-    /**
-     * Create Tracker and one item
-     */
-    private Tracker createObjects() {
-        String name = ITEM_NAME;
-        String desc = ITEM_DESC;
-        Tracker tracker = new Tracker();
-        tracker.add(new Item(name, desc));
-        return tracker;
-    }
-
-    /**
-     * Return back standard System.out
-     * Executing after method
-     */
-    @After
-    public void backOutput() {
-        System.setOut(this.stdout);
-    }
-
-    //UI templates block
-
-    /**
-     * Variables for the graphic menu.
-     */
     private static final String ADD = "0";
     private static final String SHOW = "1";
     private static final String EDIT = "2";
@@ -74,11 +42,12 @@ public class StartUITest {
     private static final String FIND_ID = "4";
     private static final String FIND_NAME = "5";
     private static final String EXIT = "6";
-
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String TEXT_COLOR = "\u001B[32m";
     private static final String MENU_ACTIVE_COLOR = "\u001B[35m";
     private static final String ATTENTION_COLOR = "\u001B[31m";
+
+    // *** UI templates blocks ***
 
     /**
      * Menu template
@@ -122,11 +91,11 @@ public class StartUITest {
     }
 
     private String editingTask(String id) {
-        return String.format("Task %s%s%s was edited to:%n", TEXT_COLOR, id,  ANSI_RESET );
+        return String.format("Task %s%s%s was edited to:%n", TEXT_COLOR, id, ANSI_RESET);
     }
 
     private String deleteTask(String id) {
-        return String.format("Task %s%s%s was deleted.%n", TEXT_COLOR, id,  ANSI_RESET );
+        return String.format("Task %s%s%s was deleted.%n", TEXT_COLOR, id, ANSI_RESET);
     }
 
     /**
@@ -140,12 +109,53 @@ public class StartUITest {
 
     /**
      * Error message drawing
-     * @param message
+     * @param message text for the error message
      * @return Error message
      */
     private String errorUI(String message) {
         return String.format("%n%sError: %s %s", ATTENTION_COLOR, message, ANSI_RESET);
     }
+
+    // *** Private test-methods block  ***
+
+    /**
+     * Change standard System.out into the buffer
+     * Executing before method
+     */
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+
+    /**
+     * Return back standard System.out
+     * Executing after method
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
+
+    /**
+     * Create Tracker and one item
+     */
+    private Tracker createObjects() {
+        Tracker tracker = new Tracker();
+        tracker.add(new Item(ITEM_NAME, ITEM_DESC));
+        return tracker;
+    }
+
+    private String buildExpectedString(String header, String body) {
+        return new StringBuilder()
+                .append(this.menuUI())
+                .append(this.headerUI(header))
+                .append(body)
+                .append(this.menuUI())
+                .append(System.lineSeparator())
+                .toString();
+    }
+
+    // *** UI Tests ***
 
     /**
      * UI input/output positive case testing: Create a new Item. (0. Add new Item)
@@ -159,13 +169,8 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(
                 out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("create the task"))
-                        .append(this.newTaskCreation(tracker.getAll()[1].getId()))
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+                is(this.buildExpectedString("create the task",
+                        this.newTaskCreation(tracker.getAll()[1].getId()))
                 )
         );
     }
@@ -180,13 +185,8 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(
                 out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("show all tasks"))
-                        .append(this.tableRowUI(tracker.getAll()[0].getId(), ITEM_NAME, ITEM_DESC))
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+                is(this.buildExpectedString("show all tasks",
+                        this.tableRowUI(tracker.getAll()[0].getId(), ITEM_NAME, ITEM_DESC))
                 )
         );
     }
@@ -201,14 +201,8 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(
                 out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("show all tasks"))
-                        .append("No results.")
-                        .append(System.lineSeparator())
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+                is(this.buildExpectedString("show all tasks",
+                        "No results." + System.getProperty("line.separator"))
                 )
         );
     }
@@ -217,43 +211,34 @@ public class StartUITest {
      * UI input/output positive case testing: Edit item. (2. Edit item)
      */
     @Test
-    public void setUIWhenUserUpdateItemsNameAndDescThenDrawMenuEditInfoMenu () {
+    public void setUIWhenUserUpdateItemsNameAndDescThenDrawMenuEditInfoMenu() {
         Tracker tracker = createObjects();
         String newName = "New Name";
         String newDesc = "New Description";
         String id = tracker.getAll()[0].getId();
         Input input = new StubInput(new String[]{"2", id, newName, newDesc, "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                    .append(this.menuUI())
-                    .append(this.headerUI("TASK EDITING"))
-                    .append(this.editingTask(id))
-                    .append(this.tableRowUI(id, newName, newDesc))
-                    .append(this.menuUI())
-                    .append(System.lineSeparator())
-                    .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("TASK EDITING",
+                        this.editingTask(id) + this.tableRowUI(id, newName, newDesc))
                 )
         );
+
     }
 
     /**
      * UI input/output negative case testing: Edit item. (2. Edit item)
      */
     @Test
-    public void setUIWhenUserUpdateNotExistedItemsThenDrawError () {
+    public void setUIWhenUserUpdateNotExistedItemsThenDrawError() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"2", "123", "123", "123", "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("TASK EDITING"))
-                        .append(this.errorUI("Wrong edit operation."))
-                        .append(System.lineSeparator())
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("TASK EDITING",
+                        this.errorUI("Wrong edit operation.") + System.getProperty("line.separator"))
                 )
         );
     }
@@ -262,19 +247,15 @@ public class StartUITest {
      * UI input/output positive case testing: Delete item. (3. Delete item)
      */
     @Test
-    public void setUIWhenUserDeleteItemThenDrawMenuDeleteInfoMenu () {
+    public void setUIWhenUserDeleteItemThenDrawMenuDeleteInfoMenu() {
         Tracker tracker = createObjects();
         String id = tracker.getAll()[0].getId();
         Input input = new StubInput(new String[]{"3", id, "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("TASK deleting"))
-                        .append(this.deleteTask(id))
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("TASK deleting",
+                        this.deleteTask(id))
                 )
         );
     }
@@ -283,19 +264,14 @@ public class StartUITest {
      * UI input/output negative case testing: Delete item. (3. Delete item)
      */
     @Test
-    public void setUIWhenUserDeleteNotExistedItemsThenDrawError () {
+    public void setUIWhenUserDeleteNotExistedItemsThenDrawError() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"3", "132", "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("TASK deleting"))
-                        .append(this.errorUI("Wrong delete operation."))
-                        .append(System.lineSeparator())
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("TASK deleting",
+                        this.errorUI("Wrong delete operation.") + System.getProperty("line.separator"))
                 )
         );
     }
@@ -304,19 +280,15 @@ public class StartUITest {
      * UI input/output positive case testing: Find item by ID. (4. Find item by Id)
      */
     @Test
-    public void setUIWhenUserFindsTaskByIDThenDrawMenuTasksListMenu () {
+    public void setUIWhenUserFindsTaskByIDThenDrawMenuTasksListMenu() {
         Tracker tracker = createObjects();
         String id = tracker.getAll()[0].getId();
         Input input = new StubInput(new String[]{"4", id, "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("Find the task by ID"))
-                        .append(this.tableRowUI(id, ITEM_NAME, ITEM_DESC))
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("Find the task by ID",
+                        this.tableRowUI(id, ITEM_NAME, ITEM_DESC))
                 )
         );
     }
@@ -325,19 +297,14 @@ public class StartUITest {
      * UI input/output negative case testing: Find item by ID. (4. Find item by Id)
      */
     @Test
-    public void setUIWhenUserFindsTaskByIDButNotExistThenDrawMessage () {
+    public void setUIWhenUserFindsTaskByIDButNotExistThenDrawMessage() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"4", "32", "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("Find the task by ID"))
-                        .append("No results.")
-                        .append(System.lineSeparator())
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("FIND THE TASK BY ID",
+                        "No results." + System.getProperty("line.separator"))
                 )
         );
     }
@@ -346,19 +313,15 @@ public class StartUITest {
      * UI input/output positive case testing: Find item by a name. (5. Find item by a name)
      */
     @Test
-    public void setUIWhenUserFindsTaskByNameThenDrawMenuTasksListMenu () {
+    public void setUIWhenUserFindsTaskByNameThenDrawMenuTasksListMenu() {
         Tracker tracker = createObjects();
         String id = tracker.getAll()[0].getId();
         Input input = new StubInput(new String[]{"5", ITEM_NAME, "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("Find tasks by a name"))
-                        .append(this.tableRowUI(id, ITEM_NAME, ITEM_DESC))
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("Find tasks by a name",
+                        this.tableRowUI(id, ITEM_NAME, ITEM_DESC))
                 )
         );
     }
@@ -367,19 +330,14 @@ public class StartUITest {
      * UI input/output negative case testing: Find item by a name. (5. Find item by a name)
      */
     @Test
-    public void setUIWhenUserFindsTaskByNameButNotExistThenDrawMessage () {
+    public void setUIWhenUserFindsTaskByNameButNotExistThenDrawMessage() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"5", ITEM_NAME, "6"});
         new StartUI(input, tracker).init();
-        assertThat(out.toString(),
-                is( new StringBuilder()
-                        .append(this.menuUI())
-                        .append(this.headerUI("Find tasks by a name"))
-                        .append("No results.")
-                        .append(System.lineSeparator())
-                        .append(this.menuUI())
-                        .append(System.lineSeparator())
-                        .toString()
+        assertThat(
+                out.toString(),
+                is(this.buildExpectedString("Find tasks by a name",
+                        "No results." + System.getProperty("line.separator"))
                 )
         );
     }
@@ -388,12 +346,12 @@ public class StartUITest {
      * UI input/output positive case testing: Find item by a name. (5. Find item by a name)
      */
     @Test
-    public void setUIWhenUserExitProgramThenDrawMenu () {
+    public void setUIWhenUserExitProgramThenDrawMenu() {
         Tracker tracker = createObjects();
         Input input = new StubInput(new String[]{"6"});
         new StartUI(input, tracker).init();
         assertThat(out.toString(),
-                is( new StringBuilder()
+                is(new StringBuilder()
                         .append(this.menuUI())
                         .append(System.lineSeparator())
                         .toString()
