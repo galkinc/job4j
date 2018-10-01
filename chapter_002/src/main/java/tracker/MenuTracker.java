@@ -81,7 +81,6 @@ public class MenuTracker {
 
     private class AddItem implements UserAction {
         private String menuN;
-        private String menuName;
 
         public AddItem(String menuN) {
             this.menuN = menuN;
