@@ -4,6 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import tracker.controller.input.Input;
+import tracker.controller.input.StubInput;
+import tracker.model.Item;
+import tracker.model.Tracker;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 

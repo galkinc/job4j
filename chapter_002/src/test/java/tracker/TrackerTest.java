@@ -1,6 +1,8 @@
 package tracker;
 
 import org.junit.Test;
+import tracker.model.Item;
+import tracker.model.Tracker;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.nullValue;

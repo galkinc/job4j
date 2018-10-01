@@ -1,5 +1,11 @@
 package tracker;
 
+import tracker.view.UITemplate;
+import tracker.model.Tracker;
+import tracker.controller.action.MenuTracker;
+import tracker.controller.input.ConsoleInput;
+import tracker.controller.input.Input;
+
 public class StartUI {
 
     /**
@@ -34,8 +40,8 @@ public class StartUI {
      * Menu creation
      */
     public void init() {
-        String awaiting = "Please input " + UITracker.id("a number") + " from the menu: ";
-        String wrongInput = UITracker.errorUI("Wrong input value");
+        String awaiting = "Please input " + UITemplate.id("a number") + " from the menu: ";
+        String wrongInput = UITemplate.errorUI("Wrong input value");
         boolean exit = false;
 
         while (!exit) {

@@ -1,4 +1,4 @@
-package tracker;
+package tracker.model;
 
 public class Item {
     private String id;

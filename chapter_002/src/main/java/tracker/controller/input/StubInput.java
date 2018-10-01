@@ -1,4 +1,4 @@
-package tracker;
+package tracker.controller.input;
 
 public class StubInput implements Input {
     /**

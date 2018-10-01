@@ -1,4 +1,7 @@
-package tracker;
+package tracker.controller.action;
+
+import tracker.controller.input.Input;
+import tracker.model.Tracker;
 
 public interface UserAction {
 

@@ -1,6 +1,6 @@
-package tracker;
+package tracker.view;
 
-public class UITracker {
+public class UITemplate {
     /**
      * Variables for the graphic menu.
      */
