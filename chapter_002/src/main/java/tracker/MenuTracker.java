@@ -32,6 +32,8 @@ public class MenuTracker {
      * 5. Find items by name
      * 6. Exit Program
      *
+     * @Todo change menuN from String to Int during a next refactoring session
+     *
      * @param input   Input object
      * @param tracker Tracker object
      */
@@ -79,6 +81,7 @@ public class MenuTracker {
 
     private class AddItem implements UserAction {
         private String menuN;
+        private String menuName;
 
         public AddItem(String menuN) {
             this.menuN = menuN;
