@@ -42,7 +42,6 @@ public class Tracker {
      */
     public boolean fastReplace(String id, Item subject) {
         boolean status = false;
-        String subjectId;
 
         for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
@@ -66,7 +65,6 @@ public class Tracker {
      */
     public boolean replace(String id, Item subject) {
         boolean status = false;
-        String subjectId;
 
         for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {

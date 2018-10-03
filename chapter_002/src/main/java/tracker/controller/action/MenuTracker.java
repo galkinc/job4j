@@ -24,6 +24,11 @@ public class MenuTracker {
     private List<UserAction> actions = new ArrayList<>();
 
     /**
+     * Exit status (could be used for
+     */
+    private boolean exit = false;
+
+    /**
      * Constructor.
      *
      * Actions:
@@ -59,6 +64,22 @@ public class MenuTracker {
      */
     public int getActionsLength() {
         return this.actions.size();
+    }
+
+    /**
+     * Setter for status of exit from the program
+     * @param exit
+     */
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
+    /**
+     * Getter for exit status (Should we exit from the program?)
+     * @return Exit status
+     */
+    public boolean isExit() {
+        return exit;
     }
 
     /**
@@ -287,6 +308,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
+            MenuTracker.this.setExit(true);
         }
 
     }

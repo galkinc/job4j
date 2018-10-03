@@ -42,17 +42,13 @@ public class StartUI {
     public void init() {
         String awaiting = "Please input " + UITemplate.id("a number") + " from the menu: ";
         String wrongInput = UITemplate.errorUI("Wrong input value");
-        boolean exit = false;
+        MenuTracker menu = new MenuTracker(this.input, this.tracker);
 
-        while (!exit) {
-            MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        while (!menu.isExit()) {
             menu.show();
             String answer = this.input.ask(awaiting);
             if (Integer.valueOf(answer) < menu.getActionsLength()) {
                 menu.select(Integer.valueOf(answer));
-                if (answer.equals("6")) {
-                    exit = true;
-                }
             } else {
                 System.out.println(wrongInput);
             }
