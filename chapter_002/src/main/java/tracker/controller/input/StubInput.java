@@ -1,5 +1,9 @@
 package tracker.controller.input;
 
+import tracker.controller.action.UserAction;
+
+import java.util.List;
+
 public class StubInput implements Input {
     /**
      * Variable for the user's answering
@@ -21,11 +25,16 @@ public class StubInput implements Input {
 
     /**
      * User's answers returning by sequential calling the Ask-method
-     * @param question
-     * @return
+     * @param question String for printing on the console.
+     * @return Whole sequence of inserted symbols.
      */
     @Override
     public String ask(String question) {
         return this.answers[this.position++];
     }
+
+    public String ask(String question, List<UserAction> range) {
+        return question;
+    }
+
 }

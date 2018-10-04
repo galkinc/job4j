@@ -24,7 +24,7 @@ public class MenuTracker {
     private List<UserAction> actions = new ArrayList<>();
 
     /**
-     * Exit status (could be used for
+     * Exit status (could be used for exit from the program in the UI)
      */
     private boolean exit = false;
 
@@ -39,8 +39,6 @@ public class MenuTracker {
      * 4. Find item by Id
      * 5. Find items by name
      * 6. Exit Program
-     *
-     * @Todo change menuN from String to Int during a next refactoring session
      *
      * @param input   Input object
      * @param tracker Tracker object
@@ -60,6 +58,7 @@ public class MenuTracker {
 
     /**
      * Get a length of the actions array
+     * @deprecated Will be deleted
      * @return Array's length
      */
     public int getActionsLength() {
@@ -68,7 +67,7 @@ public class MenuTracker {
 
     /**
      * Setter for status of exit from the program
-     * @param exit
+     * @param exit Exit status (Using for exit from the program in the UI)
      */
     public void setExit(boolean exit) {
         this.exit = exit;
@@ -91,7 +90,7 @@ public class MenuTracker {
     }
 
     /**
-     * Метод выводит на экран меню.
+     * Show the menu.
      */
     public void show() {
         System.out.print(UITemplate.menuHeader());
@@ -101,6 +100,14 @@ public class MenuTracker {
             }
         }
         System.out.print(UITemplate.menufooter());
+    }
+
+    /**
+     * Get all menu as a List
+     * @return List of the menu
+     */
+    public List<UserAction> getMenuList() {
+        return this.actions;
     }
 
     private class AddItem implements UserAction {
