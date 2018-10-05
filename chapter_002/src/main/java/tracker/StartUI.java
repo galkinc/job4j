@@ -5,6 +5,7 @@ import tracker.model.Tracker;
 import tracker.controller.action.MenuTracker;
 import tracker.controller.input.Input;
 import tracker.controller.input.ValidateInput;
+import tracker.controller.input.ConsoleInput;
 
 public class StartUI {
 
@@ -33,7 +34,7 @@ public class StartUI {
      * @param args Arguments
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 
     /**

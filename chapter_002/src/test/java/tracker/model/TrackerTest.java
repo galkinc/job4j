@@ -1,4 +1,4 @@
-package tracker;
+package tracker.model;
 
 import org.junit.Test;
 import tracker.model.Item;

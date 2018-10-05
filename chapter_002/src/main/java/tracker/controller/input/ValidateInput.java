@@ -6,7 +6,21 @@ import tracker.view.UITemplate;
 
 import java.util.List;
 
-public class ValidateInput extends ConsoleInput {
+/**
+ * It receives data from the system until entering of the correct characters.
+ */
+public class ValidateInput implements Input {
+
+    private final Input input;
+
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
+
+    @Override
+    public String ask(String question) {
+        return this.input.ask(question);
+    }
 
     public String ask(String question, List<UserAction> range) {
         boolean isValid = false;
@@ -14,12 +28,12 @@ public class ValidateInput extends ConsoleInput {
 
         while (!isValid) {
             try {
-                value = super.ask(question, range);
+                value = this.input.ask(question, range);
                 isValid = true;
-            } catch (NumberFormatException nfe) {
-               System.out.println(UITemplate.errorUI("Wrong format for menu input value."));
             } catch (MenuOutException moe) {
                 System.out.println(UITemplate.errorUI("Please input key from the menu."));
+            } catch (NumberFormatException nfe) {
+               System.out.println(UITemplate.errorUI("Wrong format for menu input value."));
             }
         }
 

@@ -374,7 +374,7 @@ public class StartUITest {
     }
 
     // General menu message blog (Tests for Exceptions)
-
+    //@TODO Write TEST
     /*
     @Test
     public void setUIWhenUserChoosesWrongMenuItemThenGetAMessage() {
