@@ -160,6 +160,15 @@ public class StartUITest {
                 .toString();
     }
 
+    private String buildExpectedErrorString(String body) {
+        return new StringBuilder()
+                .append(this.menuUI())
+                .append(this.errorUI(body))
+                .append(this.menuUI())
+                .append(System.lineSeparator())
+                .toString();
+    }
+
     // *** UI Tests ***
 
     /**
@@ -352,7 +361,7 @@ public class StartUITest {
      */
     @Test
     public void setUIWhenUserExitProgramThenDrawMenu() {
-        Tracker tracker = createObjects();
+        Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"6"});
         new StartUI(input, tracker).init();
         assertThat(out.toString(),
@@ -364,4 +373,21 @@ public class StartUITest {
         );
     }
 
+    // General menu message blog (Tests for Exceptions)
+
+    /*
+    @Test
+    public void setUIWhenUserChoosesWrongMenuItemThenGetAMessage() {
+        String error = this.buildExpectedErrorString("Please input key from the menu.");
+        Tracker tracker = new Tracker();
+
+        Input wrongFormat = new StubInput(new String[]{"Trololo"});
+        new StartUI(wrongFormat, tracker).init();
+        assertThat(out.toString(), is(error));
+
+        Input outOfRange = new StubInput(new String[]{"-1"});
+        new StartUI(outOfRange, tracker).init();
+        assertThat(out.toString(), is(error));
+    }
+    */
 }

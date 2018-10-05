@@ -16,10 +16,10 @@ public class ValidateInput extends ConsoleInput {
             try {
                 value = super.ask(question, range);
                 isValid = true;
-            } catch (MenuOutException moe) {
-                System.out.println(UITemplate.errorUI("Please input key from the menu"));
             } catch (NumberFormatException nfe) {
-                System.out.println(UITemplate.errorUI("Wrong input value"));
+               System.out.println(UITemplate.errorUI("Wrong format for menu input value."));
+            } catch (MenuOutException moe) {
+                System.out.println(UITemplate.errorUI("Please input key from the menu."));
             }
         }
 
