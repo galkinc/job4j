@@ -1,5 +1,7 @@
 package tracker.controller.input;
 
+import tracker.MenuOutException;
+
 /**
  * Class for test user's input
  */
@@ -40,7 +42,19 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question, String[] range) {
-        return this.answers[this.position++];
-    }
+        String key = this.answers[this.position++];
+        boolean exist = false;
 
+        for (String value : range) {
+            if (value.equals(key)) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of the range.");
+        }
+    }
 }

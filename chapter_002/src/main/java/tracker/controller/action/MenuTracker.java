@@ -3,7 +3,7 @@ package tracker.controller.action;
 import tracker.controller.input.Input;
 import tracker.model.Item;
 import tracker.model.Tracker;
-import tracker.view.UITemplate;
+import tracker.view.StartUITemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,13 +97,13 @@ public class MenuTracker {
      * Show the menu.
      */
     public void show() {
-        System.out.print(UITemplate.menuHeader());
+        System.out.print(StartUITemplate.menuHeader());
         for (UserAction action : this.actions) {
             if (action != null) {
                 System.out.print(action.menu());
             }
         }
-        System.out.print(UITemplate.menufooter());
+        System.out.print(StartUITemplate.menufooter());
     }
 
     /**
@@ -114,7 +114,7 @@ public class MenuTracker {
         int size = this.actions.size();
         String[] menuList = new String[size];
 
-        for (int i=0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             menuList[i] = this.actions.get(i).key();
         }
 
@@ -138,17 +138,17 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Add a new task.");
+            return StartUITemplate.menuLine(menuN, "Add a new task.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("create the task"));
+            System.out.println(StartUITemplate.headerUI("create the task"));
             String name = input.ask("Task name: ");
             String desc = input.ask("Task description: ");
             Item item = new Item(name, desc);
             tracker.add(item);
-            System.out.println("The new task was created with ID: " + UITemplate.id(item.getId()));
+            System.out.println("The new task was created with ID: " + StartUITemplate.id(item.getId()));
         }
 
     }
@@ -167,16 +167,16 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Show all tasks.");
+            return StartUITemplate.menuLine(menuN, "Show all tasks.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("Show all tasks"));
+            System.out.println(StartUITemplate.headerUI("Show all tasks"));
             Item[] tasks = tracker.getAll();
             if (tasks.length > 0) {
-                for (int i = 0; i < tasks.length; i++) {
-                    System.out.println(UITemplate.tableRowUI(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
+                for (Item task: tasks) {
+                    System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
                 }
             } else {
                 System.out.println("No results.");
@@ -199,21 +199,21 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Edit a task.");
+            return StartUITemplate.menuLine(menuN, "Edit a task.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("Task editing"));
+            System.out.println(StartUITemplate.headerUI("Task editing"));
             String id = input.ask("Task id: ");
             String name = input.ask("Task new name: ");
             String desc = input.ask("Task new description: ");
             Item item = new Item(name, desc);
             if (tracker.replace(id, item)) {
-                System.out.println("Task " + UITemplate.id(id) + " was edited to:");
-                System.out.println(UITemplate.tableRowUI(id, item.getName(), item.getDesc()));
+                System.out.println("Task " + StartUITemplate.id(id) + " was edited to:");
+                System.out.println(StartUITemplate.tableRowUI(id, item.getName(), item.getDesc()));
             } else {
-                System.out.println(UITemplate.errorUI("Wrong edit operation."));
+                System.out.println(StartUITemplate.errorUI("Wrong edit operation."));
             }
         }
     }
@@ -232,17 +232,17 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Delete a task.");
+            return StartUITemplate.menuLine(menuN, "Delete a task.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("Task deleting"));
+            System.out.println(StartUITemplate.headerUI("Task deleting"));
             String id = input.ask("Task id: ");
             if (tracker.delete(id)) {
-                System.out.println("Task " + UITemplate.id(id) + " was deleted.");
+                System.out.println("Task " + StartUITemplate.id(id) + " was deleted.");
             } else {
-                System.out.println(UITemplate.errorUI("Wrong delete operation."));
+                System.out.println(StartUITemplate.errorUI("Wrong delete operation."));
             }
         }
     }
@@ -261,16 +261,16 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Find a task by Id.");
+            return StartUITemplate.menuLine(menuN, "Find a task by Id.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("Find the task by ID"));
+            System.out.println(StartUITemplate.headerUI("Find the task by ID"));
             String id = input.ask("Task id: ");
             Item item = tracker.findById(id);
             if (item != null) {
-                System.out.println(UITemplate.tableRowUI(item.getId(), item.getName(), item.getDesc()));
+                System.out.println(StartUITemplate.tableRowUI(item.getId(), item.getName(), item.getDesc()));
             } else {
                 System.out.println("No results.");
 
@@ -292,17 +292,17 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Find tasks by a name.");
+            return StartUITemplate.menuLine(menuN, "Find tasks by a name.");
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println(UITemplate.headerUI("Find tasks by a name"));
+            System.out.println(StartUITemplate.headerUI("Find tasks by a name"));
             String name = input.ask("Task name: ");
             Item[] tasks = tracker.findByName(name);
             if (tasks.length > 0) {
-                for (int i = 0; i < tasks.length; i++) {
-                    System.out.println(UITemplate.tableRowUI(tasks[i].getId(), tasks[i].getName(), tasks[i].getDesc()));
+                for (Item task: tasks) {
+                    System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
                 }
             } else {
                 System.out.println("No results.");
@@ -324,7 +324,7 @@ public class MenuTracker {
 
         @Override
         public String menu() {
-            return UITemplate.menuLine(menuN, "Program exit.");
+            return StartUITemplate.menuLine(menuN, "Program exit.");
         }
 
         @Override

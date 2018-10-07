@@ -1,6 +1,6 @@
 package tracker.view;
 
-public class UITemplate {
+public class StartUITemplate {
     /**
      * Variables for the graphic menu.
      */

@@ -1,6 +1,6 @@
 package tracker;
 
-import tracker.view.UITemplate;
+import tracker.view.StartUITemplate;
 import tracker.model.Tracker;
 import tracker.controller.action.MenuTracker;
 import tracker.controller.input.Input;
@@ -41,7 +41,7 @@ public class StartUI {
      * Menu creation
      */
     public void init() {
-        String awaiting = "Please input " + UITemplate.id("a number") + " from the menu: ";
+        String awaiting = "Please input " + StartUITemplate.id("a number") + " from the menu: ";
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
 
         while (!menu.isExit()) {

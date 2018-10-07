@@ -1,7 +1,7 @@
 package tracker.controller.input;
 
 import tracker.MenuOutException;
-import tracker.view.UITemplate;
+import tracker.view.StartUITemplate;
 
 /**
  * It receives data from the system until entering of the correct characters.
@@ -28,7 +28,7 @@ public class ValidateInput implements Input {
                 value = this.input.ask(question, range);
                 isValid = true;
             } catch (MenuOutException moe) {
-                System.out.println(UITemplate.errorUI("Please input key from the menu."));
+                System.out.println(StartUITemplate.errorUI("Please input key from the menu."));
             }
         }
 
