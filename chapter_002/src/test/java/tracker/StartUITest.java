@@ -373,21 +373,14 @@ public class StartUITest {
         );
     }
 
-    // General menu message blog (Tests for Exceptions)
+    // General menu message blog (Tests for Exceptions) expected = MenuOutException.class
+//(expected = MenuOutException.class)
     //@TODO Write TEST
-    /*
     @Test
     public void setUIWhenUserChoosesWrongMenuItemThenGetAMessage() {
-        String error = this.buildExpectedErrorString("Please input key from the menu.");
         Tracker tracker = new Tracker();
-
-        Input wrongFormat = new StubInput(new String[]{"Trololo"});
-        new StartUI(wrongFormat, tracker).init();
-        assertThat(out.toString(), is(error));
-
-        Input outOfRange = new StubInput(new String[]{"-1"});
-        new StartUI(outOfRange, tracker).init();
-        assertThat(out.toString(), is(error));
+        Input input = new StubInput(new String[]{"12","6"});
+        new StartUI(input, tracker).init();
+        assertThat(out.toString(), is("Please input key from the menu."));
     }
-    */
 }

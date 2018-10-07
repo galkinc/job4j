@@ -1,9 +1,5 @@
 package tracker.controller.input;
 
-import tracker.controller.action.UserAction;
-
-import java.util.List;
-
 /**
  * Class for test user's input
  */
@@ -43,7 +39,7 @@ public class StubInput implements Input {
      * @return Whole sequence of inserted symbols.
      */
     @Override
-    public String ask(String question, List<UserAction> range) {
+    public String ask(String question, String[] range) {
         return this.answers[this.position++];
     }
 

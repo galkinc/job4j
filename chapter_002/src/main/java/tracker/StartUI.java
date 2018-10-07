@@ -47,7 +47,7 @@ public class StartUI {
         while (!menu.isExit()) {
             menu.show();
             String answer = this.input.ask(awaiting, menu.getMenuList());
-            menu.select(Integer.valueOf(answer));
+            menu.select(answer);
         }
     }
 

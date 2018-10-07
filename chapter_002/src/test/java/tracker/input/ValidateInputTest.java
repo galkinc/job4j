@@ -7,12 +7,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
-import tracker.controller.input.ValidateInput;
-import tracker.controller.input.StubInput;
+import tracker.MenuOutException;
 
 /**
  * Test class which receives data from the system until entering of the correct characters.
@@ -32,13 +27,9 @@ public class ValidateInputTest {
         System.setOut(this.out);
     }
 
-    //@TODO Write TEST
-    @Test
+    //@TODO Write the TEST
+    @Test(expected = MenuOutException.class)
     public void whenInvalidInput() {
-
-    /*    ValidateInput input = new ValidateInput(new StubInput(new String[] {"invalid", "1"}));
-    input.ask("Enter");
-    assertThat(this.mem.toString(), is(String.format("Please input key from the menu.")));
-    */
+        throw new MenuOutException("Out of the range.");
     }
 }

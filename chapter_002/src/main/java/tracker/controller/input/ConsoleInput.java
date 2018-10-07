@@ -1,9 +1,6 @@
 package tracker.controller.input;
 
 import tracker.MenuOutException;
-import tracker.controller.action.UserAction;
-
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleInput implements Input {
@@ -22,11 +19,12 @@ public class ConsoleInput implements Input {
         return scanner.nextLine();
     }
 
-    public String ask(String question, List<UserAction> range) {
+    public String ask(String question, String[] range) {
         String key = this.ask(question);
         boolean exist = false;
-        for (UserAction value : range) {
-            if (value.key().equals(key)) {
+
+        for (String value : range) {
+            if (value.equals(key)) {
                 exist = true;
                 break;
             }

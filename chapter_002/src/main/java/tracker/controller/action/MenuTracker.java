@@ -83,10 +83,14 @@ public class MenuTracker {
 
     /**
      * Key -> Action
-     * @param key Key of the operation
+     * @param command Key of the operation
      */
-    public void select(int key) {
-        this.actions.get(key).execute(this.input, this.tracker);
+    public void select(String command) {
+        for (UserAction action: this.actions) {
+            if (action.key().equals(command)) {
+                action.execute(this.input, this.tracker);
+            }
+        }
     }
 
     /**
@@ -106,10 +110,20 @@ public class MenuTracker {
      * Get all menu as a List
      * @return List of the menu
      */
-    public List<UserAction> getMenuList() {
-        return this.actions;
+    public String[] getMenuList() {
+        int size = this.actions.size();
+        String[] menuList = new String[size];
+
+        for (int i=0; i < size; i++) {
+            menuList[i] = this.actions.get(i).key();
+        }
+
+        return menuList;
     }
 
+    /**
+     * Create an Item
+     */
     private class AddItem implements UserAction {
         private String menuN;
 

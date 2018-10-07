@@ -1,10 +1,7 @@
 package tracker.controller.input;
 
 import tracker.MenuOutException;
-import tracker.controller.action.UserAction;
 import tracker.view.UITemplate;
-
-import java.util.List;
 
 /**
  * It receives data from the system until entering of the correct characters.
@@ -22,7 +19,7 @@ public class ValidateInput implements Input {
         return this.input.ask(question);
     }
 
-    public String ask(String question, List<UserAction> range) {
+    public String ask(String question, String[] range) {
         boolean isValid = false;
         String value = null;
 
@@ -32,8 +29,6 @@ public class ValidateInput implements Input {
                 isValid = true;
             } catch (MenuOutException moe) {
                 System.out.println(UITemplate.errorUI("Please input key from the menu."));
-            } catch (NumberFormatException nfe) {
-               System.out.println(UITemplate.errorUI("Wrong format for menu input value."));
             }
         }
 
