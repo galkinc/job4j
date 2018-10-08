@@ -1,4 +1,4 @@
-package tracker;
+package tracker.model;
 
 import org.junit.Test;
 import tracker.model.Item;
@@ -178,9 +178,4 @@ public class TrackerTest {
         assertThat(tracker.findByName("Name for finding"), is(new Item[0]));
     }
 
-
-
-    //@Before
-    //@After
-    //@Parameterized.Parameters
 }

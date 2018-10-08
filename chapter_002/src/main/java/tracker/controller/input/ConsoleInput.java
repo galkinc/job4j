@@ -1,5 +1,6 @@
 package tracker.controller.input;
 
+import tracker.MenuOutException;
 import java.util.Scanner;
 
 public class ConsoleInput implements Input {
@@ -17,4 +18,22 @@ public class ConsoleInput implements Input {
         System.out.print(question);
         return scanner.nextLine();
     }
+
+    public String ask(String question, String[] range) {
+        String key = this.ask(question);
+        boolean exist = false;
+
+        for (String value : range) {
+            if (value.equals(key)) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of the range.");
+        }
+    }
+
 }

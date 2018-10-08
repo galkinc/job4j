@@ -1,10 +1,11 @@
 package tracker;
 
-import tracker.view.UITemplate;
+import tracker.view.StartUITemplate;
 import tracker.model.Tracker;
 import tracker.controller.action.MenuTracker;
-import tracker.controller.input.ConsoleInput;
 import tracker.controller.input.Input;
+import tracker.controller.input.ValidateInput;
+import tracker.controller.input.ConsoleInput;
 
 public class StartUI {
 
@@ -33,25 +34,20 @@ public class StartUI {
      * @param args Arguments
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 
     /**
      * Menu creation
      */
     public void init() {
-        String awaiting = "Please input " + UITemplate.id("a number") + " from the menu: ";
-        String wrongInput = UITemplate.errorUI("Wrong input value");
+        String awaiting = "Please input " + StartUITemplate.id("a number") + " from the menu: ";
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
 
         while (!menu.isExit()) {
             menu.show();
-            String answer = this.input.ask(awaiting);
-            if (Integer.valueOf(answer) < menu.getActionsLength()) {
-                menu.select(Integer.valueOf(answer));
-            } else {
-                System.out.println(wrongInput);
-            }
+            String answer = this.input.ask(awaiting, menu.getMenuList());
+            menu.select(answer);
         }
     }
 
