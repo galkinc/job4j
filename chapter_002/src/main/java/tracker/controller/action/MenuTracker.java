@@ -87,8 +87,14 @@ public class MenuTracker {
      */
     public void select(String command) {
         for (UserAction action: this.actions) {
-            if (action.key().equals(command)) {
-                action.execute(this.input, this.tracker);
+            try {
+                if (action.key().equals(command)) {
+                    action.execute(this.input, this.tracker);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("No results.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(StartUITemplate.errorUI("Wrong arguments for the operation."));
             }
         }
     }
@@ -171,15 +177,16 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws NullPointerException {
             System.out.println(StartUITemplate.headerUI("Show all tasks"));
             Item[] tasks = tracker.getAll();
-            if (tasks.length > 0) {
-                for (Item task: tasks) {
+
+            if (tasks.length <= 0) {
+                throw new NullPointerException();
+            }
+
+            for (Item task: tasks) {
                     System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
-                }
-            } else {
-                System.out.println("No results.");
             }
         }
 
@@ -203,18 +210,19 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws IllegalArgumentException {
             System.out.println(StartUITemplate.headerUI("Task editing"));
             String id = input.ask("Task id: ");
             String name = input.ask("Task new name: ");
             String desc = input.ask("Task new description: ");
             Item item = new Item(name, desc);
-            if (tracker.replace(id, item)) {
-                System.out.println("Task " + StartUITemplate.id(id) + " was edited to:");
-                System.out.println(StartUITemplate.tableRowUI(id, item.getName(), item.getDesc()));
-            } else {
-                System.out.println(StartUITemplate.errorUI("Wrong edit operation."));
+
+            if (!tracker.replace(id, item)) {
+                throw new IllegalArgumentException();
             }
+
+            System.out.println("Task " + StartUITemplate.id(id) + " was edited to:");
+            System.out.println(StartUITemplate.tableRowUI(id, item.getName(), item.getDesc()));
         }
     }
 
@@ -236,14 +244,15 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws IllegalArgumentException {
             System.out.println(StartUITemplate.headerUI("Task deleting"));
             String id = input.ask("Task id: ");
-            if (tracker.delete(id)) {
-                System.out.println("Task " + StartUITemplate.id(id) + " was deleted.");
-            } else {
-                System.out.println(StartUITemplate.errorUI("Wrong delete operation."));
+
+            if (!tracker.delete(id)) {
+                throw new IllegalArgumentException();
             }
+
+            System.out.println("Task " + StartUITemplate.id(id) + " was deleted.");
         }
     }
 
@@ -265,16 +274,16 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws NullPointerException {
             System.out.println(StartUITemplate.headerUI("Find the task by ID"));
             String id = input.ask("Task id: ");
             Item item = tracker.findById(id);
-            if (item != null) {
-                System.out.println(StartUITemplate.tableRowUI(item.getId(), item.getName(), item.getDesc()));
-            } else {
-                System.out.println("No results.");
 
+            if (item == null) {
+                throw new NullPointerException();
             }
+
+            System.out.println(StartUITemplate.tableRowUI(item.getId(), item.getName(), item.getDesc()));
         }
     }
 
@@ -296,16 +305,17 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws NullPointerException {
             System.out.println(StartUITemplate.headerUI("Find tasks by a name"));
             String name = input.ask("Task name: ");
             Item[] tasks = tracker.findByName(name);
-            if (tasks.length > 0) {
-                for (Item task: tasks) {
-                    System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
-                }
-            } else {
-                System.out.println("No results.");
+
+            if (tasks.length <= 0) {
+                throw new NullPointerException();
+            }
+
+            for (Item task: tasks) {
+                System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
             }
         }
     }

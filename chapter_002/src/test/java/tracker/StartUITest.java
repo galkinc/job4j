@@ -253,7 +253,7 @@ public class StartUITest {
         assertThat(
                 out.toString(),
                 is(this.buildExpectedString("TASK EDITING",
-                        this.errorUI("Wrong edit operation.") + System.getProperty("line.separator"))
+                        this.errorUI("Wrong arguments for the operation.") + System.getProperty("line.separator"))
                 )
         );
     }
@@ -286,7 +286,7 @@ public class StartUITest {
         assertThat(
                 out.toString(),
                 is(this.buildExpectedString("TASK deleting",
-                        this.errorUI("Wrong delete operation.") + System.getProperty("line.separator"))
+                        this.errorUI("Wrong arguments for the operation.") + System.getProperty("line.separator"))
                 )
         );
     }
