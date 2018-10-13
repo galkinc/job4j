@@ -19,7 +19,7 @@ public class ConsoleInput implements Input {
         return scanner.nextLine();
     }
 
-    public String ask(String question, String[] range) {
+    public String ask(String question, String[] range) throws MenuOutException {
         String key = this.ask(question);
         boolean exist = false;
 
@@ -29,11 +29,12 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+
+        if (!exist) {
             throw new MenuOutException("Out of the range.");
         }
+
+        return key;
     }
 
 }
