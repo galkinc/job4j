@@ -47,13 +47,13 @@ public class MenuTracker {
         this.input = input;
         this.tracker = tracker;
 
-        this.actions.add(new AddItem("0"));
-        this.actions.add(new ShowItems("1"));
-        this.actions.add(new EditItem("2"));
-        this.actions.add(new DeleteItem("3"));
-        this.actions.add(new FindItemById("4"));
-        this.actions.add(new FindItemsByName("5"));
-        this.actions.add(new ExitProgram("6"));
+        this.actions.add(new AddItem("0", "Add a new task."));
+        this.actions.add(new ShowItems("1", "Show all tasks."));
+        this.actions.add(new EditItem("2", "Edit a task."));
+        this.actions.add(new DeleteItem("3", "Delete a task."));
+        this.actions.add(new FindItemById("4", "Find a task by Id."));
+        this.actions.add(new FindItemsByName("5", "Find tasks by a name."));
+        this.actions.add(new ExitProgram("6", "Program exit."));
     }
 
     /**
@@ -69,7 +69,7 @@ public class MenuTracker {
      * Setter for status of exit from the program
      * @param exit Exit status (Using for exit from the program in the UI)
      */
-    public void setExit(boolean exit) {
+    private void setExit(boolean exit) {
         this.exit = exit;
     }
 
@@ -88,7 +88,7 @@ public class MenuTracker {
     public void select(String command) {
         for (UserAction action: this.actions) {
             try {
-                if (action.key().equals(command)) {
+                if (action.menuKey().equals(command)) {
                     action.execute(this.input, this.tracker);
                 }
             } catch (NullPointerException e) {
@@ -121,30 +121,42 @@ public class MenuTracker {
         String[] menuList = new String[size];
 
         for (int i = 0; i < size; i++) {
-            menuList[i] = this.actions.get(i).key();
+            menuList[i] = this.actions.get(i).menuKey();
         }
 
         return menuList;
     }
 
     /**
-     * Create an Item
+     * Base class-template for Actions
      */
-    private class AddItem implements UserAction {
-        private String menuN;
+    private abstract class BaseAction implements UserAction {
+        private String menuKey;
+        private String menu;
 
-        public AddItem(String menuN) {
-            this.menuN = menuN;
+        protected BaseAction(final String menuKey, final String menu) {
+            this.menuKey = menuKey;
+            this.menu = menu;
         }
 
         @Override
-        public String key() {
-            return this.menuN;
+        public String menuKey() {
+            return this.menuKey;
         }
 
         @Override
         public String menu() {
-            return StartUITemplate.menuLine(menuN, "Add a new task.");
+            return StartUITemplate.menuLine(this.menuKey, this.menu);
+        }
+    }
+
+    /**
+     * Create an Item
+     */
+    private class AddItem extends BaseAction {
+
+        public AddItem(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -159,21 +171,13 @@ public class MenuTracker {
 
     }
 
-    private class ShowItems implements UserAction {
-        private String menuN;
+    /**
+     * Show all existed Items
+     */
+    private class ShowItems extends BaseAction {
 
-        public ShowItems(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Show all tasks.");
+        public ShowItems(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -185,28 +189,20 @@ public class MenuTracker {
                 throw new NullPointerException();
             }
 
-            for (Item task: tasks) {
-                    System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
+            for (Item task : tasks) {
+                System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
             }
         }
 
     }
 
-    private class EditItem implements UserAction {
-        private String menuN;
+    /**
+     * Edit an Item
+     */
+    private class EditItem extends BaseAction {
 
-        public EditItem(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Edit a task.");
+        public EditItem(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -226,21 +222,13 @@ public class MenuTracker {
         }
     }
 
-    private class DeleteItem implements UserAction {
-        private String menuN;
+    /**
+     * Delete an Item
+     */
+    private class DeleteItem extends BaseAction {
 
-        public DeleteItem(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Delete a task.");
+        public DeleteItem(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -256,21 +244,13 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemById implements UserAction {
-        private String menuN;
+    /**
+     * Find an Item by ID
+     */
+    private class FindItemById extends BaseAction {
 
-        public FindItemById(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Find a task by Id.");
+        public FindItemById(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -287,21 +267,13 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemsByName implements UserAction {
-        private String menuN;
+    /**
+     * Find an Item by a name
+     */
+    private class FindItemsByName extends BaseAction {
 
-        public FindItemsByName(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Find tasks by a name.");
+        public FindItemsByName(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override
@@ -314,27 +286,19 @@ public class MenuTracker {
                 throw new NullPointerException();
             }
 
-            for (Item task: tasks) {
+            for (Item task : tasks) {
                 System.out.println(StartUITemplate.tableRowUI(task.getId(), task.getName(), task.getDesc()));
             }
         }
     }
 
-    private class ExitProgram implements UserAction {
-        private String menuN;
+    /**
+     * Exit from the program
+     */
+    private class ExitProgram extends BaseAction {
 
-        public ExitProgram(String menuN) {
-            this.menuN = menuN;
-        }
-
-        @Override
-        public String key() {
-            return menuN;
-        }
-
-        @Override
-        public String menu() {
-            return StartUITemplate.menuLine(menuN, "Program exit.");
+        public ExitProgram(String menuKey, String menu) {
+            super(menuKey, menu);
         }
 
         @Override

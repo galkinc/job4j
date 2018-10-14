@@ -5,7 +5,7 @@ import tracker.model.Tracker;
 
 public interface UserAction {
 
-    String key();
+    String menuKey();
 
     String menu();
 
