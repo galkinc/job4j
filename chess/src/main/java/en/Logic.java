@@ -1,9 +1,7 @@
-package enUs;
+package en;
 
-import enUs.firuges.Cell;
-import enUs.firuges.Figure;
-
-import java.util.Optional;
+import en.firuges.Cell;
+import en.firuges.Figure;
 
 public class Logic {
     private final Figure[] figures = new Figure[32];

@@ -1,5 +1,9 @@
-package enUs;
+package en;
 
+import en.firuges.Cell;
+import en.firuges.Figure;
+import en.firuges.black.*;
+import en.firuges.white.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -12,10 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import enUs.firuges.Cell;
-import enUs.firuges.Figure;
-import enUs.firuges.black.*;
-import enUs.firuges.white.*;
 
 public class Chess extends Application {
     private static final String JOB4J = "Chess";

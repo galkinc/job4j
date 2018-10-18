@@ -1,7 +1,7 @@
-package enUs.firuges;
+package en.firuges;
 
 public interface Figure {
-    Cell final position();
+    Cell position();
 
     Cell[] way(Cell source, Cell dest);
 

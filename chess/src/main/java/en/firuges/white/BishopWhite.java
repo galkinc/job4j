@@ -1,12 +1,12 @@
-package enUs.firuges.white;
+package en.firuges.white;
 
-import enUs.firuges.Cell;
-import enUs.firuges.Figure;
+import en.firuges.Cell;
+import en.firuges.Figure;
 
-public class KnightWhite implements Figure {
+public class BishopWhite implements Figure {
     private final Cell position;
 
-    public KnightWhite(final Cell position) {
+    public BishopWhite(final Cell position) {
         this.position = position;
     }
 
@@ -17,11 +17,11 @@ public class KnightWhite implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override
     public Figure copy(Cell dest) {
-        return new KnightWhite(dest);
+        return new BishopWhite(dest);
     }
 }

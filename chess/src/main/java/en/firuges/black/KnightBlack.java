@@ -1,12 +1,12 @@
-package enUs.firuges.black;
+package en.firuges.black;
 
-import enUs.firuges.Cell;
-import enUs.firuges.Figure;
+import en.firuges.Cell;
+import en.firuges.Figure;
 
-public class RookBlack implements Figure {
+public class KnightBlack implements Figure {
     private final Cell position;
 
-    public RookBlack(final Cell position) {
+    public KnightBlack(final Cell position) {
         this.position = position;
     }
 
@@ -17,11 +17,11 @@ public class RookBlack implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override
     public Figure copy(Cell dest) {
-        return new RookBlack(dest);
+        return new KnightBlack(dest);
     }
 }
