@@ -1,7 +1,7 @@
 package enUs.firuges.white;
 
-import ru.job4j.chess.firuges.Cell;
-import ru.job4j.chess.firuges.Figure;
+import enUs.firuges.Cell;
+import enUs.firuges.Figure;
 
 public class KnightWhite implements Figure {
     private final Cell position;

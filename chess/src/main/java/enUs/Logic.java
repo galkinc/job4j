@@ -1,7 +1,7 @@
 package enUs;
 
-import ru.job4j.chess.firuges.Cell;
-import ru.job4j.chess.firuges.Figure;
+import enUs.firuges.Cell;
+import enUs.firuges.Figure;
 
 import java.util.Optional;
 
