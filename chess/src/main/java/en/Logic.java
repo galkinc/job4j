@@ -1,7 +1,7 @@
 package en;
 
-import en.firuges.Cell;
-import en.firuges.Figure;
+import en.models.Cell;
+import en.models.Figure;
 
 public class Logic {
     private final Figure[] figures = new Figure[32];
@@ -10,9 +10,7 @@ public class Logic {
     public void add(Figure figure) {
         this.figures[this.index++] = figure;
     }
-
-    //Todo throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException
-
+    // @TODO throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException
     /**
      * Метод должен проверить
      *    - Что в заданной ячейки есть фигура. если нет. то выкинуть исключение
@@ -26,6 +24,7 @@ public class Logic {
      */
     public boolean move(Cell source, Cell dest) {
         boolean rst = false;
+
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
@@ -34,6 +33,7 @@ public class Logic {
                 this.figures[index] = this.figures[index].copy(dest);
             }
         }
+
         return rst;
     }
 

@@ -1,7 +1,7 @@
-package en.firuges.black;
+package en.models.black;
 
-import en.firuges.Cell;
-import en.firuges.Figure;
+import en.models.Cell;
+import en.models.Figure;
 
 public class PawnBlack implements Figure {
     private final Cell position;

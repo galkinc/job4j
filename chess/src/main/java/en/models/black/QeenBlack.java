@@ -1,12 +1,12 @@
-package en.firuges.white;
+package en.models.black;
 
-import en.firuges.Cell;
-import en.firuges.Figure;
+import en.models.Cell;
+import en.models.Figure;
 
-public class RookWhite implements Figure {
+public class QeenBlack implements Figure {
     private final Cell position;
 
-    public RookWhite(final Cell position) {
+    public QeenBlack(final Cell position) {
         this.position = position;
     }
 
@@ -22,6 +22,6 @@ public class RookWhite implements Figure {
 
     @Override
     public Figure copy(Cell dest) {
-        return new RookWhite(dest);
+        return new QeenBlack(dest);
     }
 }

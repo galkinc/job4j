@@ -1,9 +1,9 @@
 package en;
 
-import en.firuges.Cell;
-import en.firuges.Figure;
-import en.firuges.black.*;
-import en.firuges.white.*;
+import en.models.Cell;
+import en.models.Figure;
+import en.models.black.*;
+import en.models.white.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;

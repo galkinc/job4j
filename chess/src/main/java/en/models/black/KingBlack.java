@@ -1,12 +1,12 @@
-package en.firuges.black;
+package en.models.black;
 
-import en.firuges.Cell;
-import en.firuges.Figure;
+import en.models.Cell;
+import en.models.Figure;
 
-public class BishopBlack implements Figure {
+public class KingBlack implements Figure {
     private final Cell position;
 
-    public BishopBlack(final Cell position) {
+    public KingBlack(final Cell position) {
         this.position = position;
     }
 
@@ -22,6 +22,6 @@ public class BishopBlack implements Figure {
 
     @Override
     public Figure copy(Cell dest) {
-        return new BishopBlack(dest);
+        return new KingBlack(dest);
     }
 }
