@@ -15,9 +15,23 @@ public class BishopBlack implements Figure {
         return this.position;
     }
 
+    /**
+     * Logic for bishop moving is
+     * d = |x2 -x1|
+     * y2 = y1 - d || y2 = y2 + d
+     *
+     * @param source Source Cell
+     * @param dest Destination Cell
+     * @return Array of passed cells
+     */
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] {dest};
+        Cell[] steps = new Cell[0];
+        int delta = Math.abs(dest.x - source.x);
+        if ((dest.y == source.y - delta) || (dest.y == source.y + delta)) {
+            steps = new Cell[] {dest};
+        }
+        return steps;
     }
 
     @Override
