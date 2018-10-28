@@ -10,6 +10,7 @@ public class Logic {
     public void add(Figure figure) {
         this.figures[this.index++] = figure;
     }
+
     // @TODO throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException
     /**
      * Метод должен проверить

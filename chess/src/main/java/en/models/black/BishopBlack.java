@@ -1,5 +1,6 @@
 package en.models.black;
 
+import en.exceptions.ImpossibleMoveException;
 import en.models.Cell;
 import en.models.Figure;
 
@@ -27,30 +28,30 @@ public class BishopBlack implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         int delta = Math.abs(dest.x - source.x);
-        //TODO Exception "Impossible moving" if delta is less then 0
+        if ((dest.y != source.y - delta) || (dest.y != source.y + delta)) {
+            throw new ImpossibleMoveException("Impossible move");
+        }
+
         Cell[] steps = new Cell[delta];
-        int countSteps = 0;
-        //TODO Exception "Impossible moving" because of the logic
-        if ((dest.y == source.y - delta) || (dest.y == source.y + delta)) {
-            for (int i = 0; i < delta; i++) {
-                //right and up
-                if (source.x > dest.x && source.y < dest.y) {
-                    steps[i] = this.findCellBy(source.x -1 - i, source.y +1 + i);
-                }
-                //left and down
-                if (source.x < dest.x && source.y > dest.y) {
-                    steps[i] = this.findCellBy(source.x +1 + i, source.y -1 - i);
-                }
-                //left and up
-                if (source.x > dest.x && source.y > dest.y) {
-                    steps[i] = this.findCellBy(source.x -1 - i, source.y -1 - i);
-                }
-                //right and down
-                if (source.x < dest.x && source.y < dest.y) {
-                    steps[i] = this.findCellBy(source.x +1 + i, source.y +1 + i);
-                }
+        for (int i = 0; i < delta; i++) {
+            //right and up
+            if (source.x > dest.x && source.y < dest.y) {
+                steps[i] = this.findCellBy(source.x -1 - i, source.y +1 + i);
+            }
+            //left and down
+            if (source.x < dest.x && source.y > dest.y) {
+                steps[i] = this.findCellBy(source.x +1 + i, source.y -1 - i);
+            }
+            //left and up
+            if (source.x > dest.x && source.y > dest.y) {
+                steps[i] = this.findCellBy(source.x -1 - i, source.y -1 - i);
+            }
+            //right and down
+            if (source.x < dest.x && source.y < dest.y) {
+                steps[i] = this.findCellBy(source.x +1 + i, source.y +1 + i);
             }
         }
+
         return steps;
     }
 
@@ -59,7 +60,7 @@ public class BishopBlack implements Figure {
         return new BishopBlack(dest);
     }
 
-    //TODO: rewrite to public class
+    //TODO: rewrite it to general class
     /**
      * Returning the cell by the coordinates
      * @param x X coordinate

@@ -1,11 +1,10 @@
 package en.models.black;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import en.models.Cell;
+import en.exceptions.*;
 
 
 public class BishopBlackTest {
@@ -48,6 +47,14 @@ public class BishopBlackTest {
         BishopBlack bishopBlack = new BishopBlack(source);
         Cell[] cells = bishopBlack.way(source, dest);
         assertThat(cells, is(expected));
+    }
+
+    @Test(expected = ImpossibleMoveException.class)
+    public void whenImpossibleMoveThenException() {
+        Cell source = Cell.F3;
+        Cell dest = Cell.H8;
+        BishopBlack bishopBlack = new BishopBlack(source);
+        Cell[] cells = bishopBlack.way(source, dest);
     }
 
 }
