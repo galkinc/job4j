@@ -26,9 +26,9 @@ public class BishopBlack implements Figure {
      * @return Array of passed cells
      */
     @Override
-    public Cell[] way(Cell source, Cell dest) {
+    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         int delta = Math.abs(dest.x - source.x);
-        if ((dest.y != source.y - delta) || (dest.y != source.y + delta)) {
+        if ((dest.y != source.y - delta) && (dest.y != source.y + delta)) {
             throw new ImpossibleMoveException("Impossible move");
         }
 
@@ -36,19 +36,19 @@ public class BishopBlack implements Figure {
         for (int i = 0; i < delta; i++) {
             //right and up
             if (source.x > dest.x && source.y < dest.y) {
-                steps[i] = this.findCellBy(source.x -1 - i, source.y +1 + i);
+                steps[i] = this.findCellBy(source.x - 1 - i, source.y + 1 + i);
             }
             //left and down
             if (source.x < dest.x && source.y > dest.y) {
-                steps[i] = this.findCellBy(source.x +1 + i, source.y -1 - i);
+                steps[i] = this.findCellBy(source.x + 1 + i, source.y - 1 - i);
             }
             //left and up
             if (source.x > dest.x && source.y > dest.y) {
-                steps[i] = this.findCellBy(source.x -1 - i, source.y -1 - i);
+                steps[i] = this.findCellBy(source.x - 1 - i, source.y - 1 - i);
             }
             //right and down
             if (source.x < dest.x && source.y < dest.y) {
-                steps[i] = this.findCellBy(source.x +1 + i, source.y +1 + i);
+                steps[i] = this.findCellBy(source.x + 1 + i, source.y + 1 + i);
             }
         }
 
