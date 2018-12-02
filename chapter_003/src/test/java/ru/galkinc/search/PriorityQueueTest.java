@@ -15,7 +15,7 @@ public class PriorityQueueTest {
         assertThat(result.getDesc(), is("urgent"));
     }
     @Test
-    public void SetWithoutTasksWhenJustOneTaskThenHigherPriority() {
+    public void setWithoutTasksWhenJustOneTaskThenHigherPriority() {
         PriorityQueue queue = new PriorityQueue();
         queue.put(new Task("urgent", 1));
         Task result = queue.take();

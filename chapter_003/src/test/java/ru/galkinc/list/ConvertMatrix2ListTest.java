@@ -21,7 +21,7 @@ public class ConvertMatrix2ListTest {
         assertThat(result, is(expect));
     }
     @Test
-    public void when2Arrays2and4ThenList6elements(){
+    public void when2Arrays2and4ThenList6elements() {
         ConvertMatrix2List list = new ConvertMatrix2List();
         int[][] input = {
                 {1, 2},
