@@ -6,8 +6,7 @@ package ru.galkinc.list;
 /**
  * By the task, I have to use foreach.
  * public List<Integer> toList (int[][] array) {} -
- * в метод приходит двумерный массив целых чисел,
- * необходимо пройтись по всем элементам массива и добавить их в List<Integer>.
+ * the method add two-dimensional int arrays in the returned list.
  */
 public class ConvertMatrix2List {
     public List<Integer> toList(int[][] array) {
