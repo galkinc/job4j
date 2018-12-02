@@ -52,7 +52,7 @@ public class ConvertListTest {
         list.add(new int[]{1, 2});
         list.add(new int[]{3, 4, 5, 6});
         List<Integer> result = ConvertList.convert(list);
-        int[] expect = {1, 2, 3, 4, 5, 6};
-        assertThat(result.toArray(), is(expect));
+        List<Integer> expect = Arrays.asList(1, 2, 3, 4, 5, 6);
+        assertThat(result, is(expect));
     }
 }
